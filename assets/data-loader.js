@@ -10,9 +10,11 @@
     'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'
   ];
 
-  // A script a HTML fájl mellett (pl. index.html) van, a data/ mappa gyökérből elérhető
+  // A data/ mappa útvonalát a saját script (assets/data-loader.js) helyéből számoljuk,
+  // így gyökérdomainen és alkönyvtárban (pl. github.io/iskola/) is jól működik.
+  const SCRIPT_SRC = document.currentScript && document.currentScript.src;
   function dataUrl(file) {
-    // Meghatározzuk az alap elérési utat (admin alkönyvtárból is működjön)
+    if (SCRIPT_SRC) return new URL('../data/' + file, SCRIPT_SRC).href;
     const depth = window.location.pathname.split('/').filter(Boolean).length;
     const base = depth > 1 ? '../'.repeat(depth - 1) : '';
     return base + 'data/' + file;
@@ -20,7 +22,7 @@
 
   async function fetchJSON(file) {
     const url = dataUrl(file);
-    const resp = await fetch(url);
+    const resp = await fetch(url, { cache: 'no-cache' });
     if (!resp.ok) throw new Error('HTTP ' + resp.status + ' – ' + url);
     return resp.json();
   }
@@ -126,9 +128,9 @@
     container.innerHTML = years.map(year => {
       const months = Object.keys(byYear[year]).sort((a, b) => b - a);
       const monthsHtml = months.map(month => {
-        const arts = byYear[year][month].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        const arts = byYear[year][month].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
         const cardsHtml = arts.map(a => {
-          const paras = a.body.split('\n\n').map(p => `<p>${escHtml(p)}</p>`).join('');
+          const paras = String(a.body || '').split('\n\n').map(p => `<p>${escHtml(p)}</p>`).join('');
           return `<div class="news-card"><h3>${escHtml(a.title)}</h3>${paras}</div>`;
         }).join('');
         return `
@@ -363,7 +365,8 @@
   }
 
   /* ── INIT ────────────────────────────────────────────────────────── */
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  let page = window.location.pathname.split('/').pop() || 'index.html';
+  if (!/\.html?$/i.test(page)) page += '.html'; // "/hirek" -> "hirek.html" (tiszta URL-ek)
 
   if (page === 'index.html' || page === '') {
     fetchJSON('calendar.json').then(renderCalendar).catch(() =>
@@ -373,8 +376,10 @@
   }
 
   if (page === 'hirek.html') {
-    fetchJSON('news.json').then(d => renderNewsPage(d.articles)).catch(() =>
-      showError('news-container', 'A hírek jelenleg nem tölthetők be.'));
+    fetchJSON('news.json').then(d => renderNewsPage(d.articles)).catch(err => {
+      console.error('Hírek betöltési hiba:', err);
+      showError('news-container', 'A hírek jelenleg nem tölthetők be.');
+    });
   }
 
   if (page === 'beiratkozas.html') {

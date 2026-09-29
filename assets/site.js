@@ -15,7 +15,8 @@
 
   // ── Aktuális oldal kiemelése a menüben ──────────────────────────
   function isActive(url) {
-    const current = window.location.pathname.split('/').pop() || 'index.html';
+    let current = window.location.pathname.split('/').pop() || 'index.html';
+    if (!/\.html?$/i.test(current)) current += '.html';
     return url === current;
   }
 
