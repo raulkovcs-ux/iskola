@@ -1624,29 +1624,36 @@ async function publishGitHub() {
   };
 
   try {
-    const results = await Promise.all(Object.entries(stateMap).map(async ([file, data]) => {
-      if (!data) return;
+    // Egyenként, sorban töltjük fel (párhuzamos írásnál a GitHub 409-es hibát adhat),
+    // a SHA-t gyorsítótár nélkül kérjük le, ütközés esetén újrapróbáljuk.
+    for (const [file, data] of Object.entries(stateMap)) {
+      if (!data) continue;
       const path = 'data/' + file;
       const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
       const headers = { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' };
-
-      // Lekérjük a jelenlegi SHA-t
-      let sha = null;
-      try {
-        const getResp = await fetch(apiUrl + '?ref=' + branch, { headers });
-        if (getResp.ok) { const j = await getResp.json(); sha = j.sha; }
-      } catch (_) {}
-
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-      const body = { message: `Admin: ${file} frissítve (${new Date().toLocaleString('hu-HU')})`, content, branch };
-      if (sha) body.sha = sha;
 
-      const putResp = await fetch(apiUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
-      if (!putResp.ok) {
-        const err = await putResp.json();
-        throw new Error(`${file}: ${err.message}`);
+      let lastErr = null;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        // Aktuális SHA lekérése (cache: no-store + időbélyeg, hogy ne kapjunk régi értéket)
+        let sha = null;
+        try {
+          const getResp = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}&_=${Date.now()}`, { headers, cache: 'no-store' });
+          if (getResp.ok) { const j = await getResp.json(); sha = j.sha; }
+        } catch (_) {}
+
+        const body = { message: `Admin: ${file} frissítve (${new Date().toLocaleString('hu-HU')})`, content, branch };
+        if (sha) body.sha = sha;
+
+        const putResp = await fetch(apiUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+        if (putResp.ok) { lastErr = null; break; }
+        const err = await putResp.json().catch(() => ({}));
+        lastErr = `${file}: ${err.message || putResp.status}`;
+        if (putResp.status !== 409 && putResp.status !== 422) break; // csak ütközésnél próbáljuk újra
+        await new Promise(r => setTimeout(r, 800));
       }
-    }));
+      if (lastErr) throw new Error(lastErr);
+    }
 
     setStatus('Közzétéve! A GitHub Pages frissítése ~60 másodpercet vesz igénybe.', 'success');
     hasChanges = false;
