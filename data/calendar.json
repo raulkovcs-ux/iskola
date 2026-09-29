@@ -1,0 +1,65 @@
+{
+  "monthLabel": "2026. március",
+  "events": [
+    {
+      "id": "evt-001",
+      "date": "03.02–06.",
+      "title": "„PÉNZ7” pénzügyi és vállalkozói témahét",
+      "responsible": "Nevelőtestület"
+    },
+    {
+      "id": "evt-002",
+      "date": "03.03.",
+      "title": "Orvosi szűrés – 2. osztály",
+      "responsible": "Markella-Márki Kitti"
+    },
+    {
+      "id": "evt-003",
+      "date": "03.03. 17:00",
+      "title": "Tájékoztató a hittantanításról",
+      "responsible": "Cseh Miklós"
+    },
+    {
+      "id": "evt-004",
+      "date": "03.05.",
+      "title": "Színházlátogatás – alsó tagozat",
+      "responsible": "Alsós mk."
+    },
+    {
+      "id": "evt-005",
+      "date": "03.06.",
+      "title": "Maros Menti Fesztivál – próza- és versmondás",
+      "responsible": "Nevelőtestület"
+    },
+    {
+      "id": "evt-006",
+      "date": "03.09.",
+      "title": "Március 15-i rajzpályázat leadási határidő (Faluház)",
+      "responsible": "—"
+    },
+    {
+      "id": "evt-007",
+      "date": "03.09.",
+      "title": "Nyílt tanítási óra – leendő elsősök szüleinek",
+      "responsible": "Deákné Bátky Judit"
+    },
+    {
+      "id": "evt-008",
+      "date": "03.10.",
+      "title": "Junior Diáksportfesztivál – 1. osztály",
+      "responsible": "—"
+    },
+    {
+      "id": "evt-009",
+      "date": "03.13.",
+      "title": "Március 15. ünnepi megemlékezés (Faluház) – 6. osztály műsora",
+      "responsible": "Bánfi Zsófia"
+    },
+    {
+      "id": "evt-010",
+      "date": "03.19.",
+      "title": "Ebédbefizetés (Csicsergő óvoda, 7:00–12:00 és 13:00–17:00)",
+      "responsible": "—"
+    }
+  ]
+}
