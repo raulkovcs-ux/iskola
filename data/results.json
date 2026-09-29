@@ -1,0 +1,119 @@
+{
+  "years": [
+    {
+      "id": "y-2526",
+      "label": "2025–2026. tanév",
+      "categories": [
+        {
+          "id": "cat-2526-1",
+          "title": "Sporteredmények",
+          "icon": "directions_run",
+          "entries": [
+            { "id": "e-001", "type": "paragraph", "text": "Szeptemberben 2 alkalommal vettek részt tanulóink atlétikai versenyen Szegeden." },
+            { "id": "e-002", "type": "subheading", "text": "Mezei futóverseny" },
+            { "id": "e-003", "type": "result", "text": "IV. korcsoport fiú — Gyorgyev Nikolá 5. hely" },
+            { "id": "e-004", "type": "subheading", "text": "Kölyökatlétika" },
+            { "id": "e-005", "type": "result", "text": "U10 — Lázár Hajna 800 m síkfutás 3. hely" },
+            { "id": "e-006", "type": "result", "text": "U12 — Moldován Kíra 800 m síkfutás 7. hely, 50 m síkfutás 9. hely" },
+            { "id": "e-007", "type": "result", "text": "U12 — Csikós Diána 800 m síkfutás 9. hely, 50 m síkfutás 9. hely" },
+            { "id": "e-008", "type": "result", "text": "U12 — Sziveri Regő 50 m síkfutás 9. hely" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "y-2425",
+      "label": "2024–2025. tanév",
+      "categories": [
+        {
+          "id": "cat-2425-1",
+          "title": "Versenyek",
+          "icon": "school",
+          "entries": [
+            { "id": "e-101", "type": "paragraph", "text": "A 2024/25. tanévben a 3. és 4. évfolyamos tanulók közül 7 tanuló részt vett a Herman Ottó környezetismeret/természetismeret versenyen. Az országos döntőbe bejutottak május 31-én Budapestre utaztak (ELTE Lágymányosi Campus)." },
+            { "id": "e-102", "type": "result", "text": "Papp Natasa Irina (3. o.) — 3. helyezett" },
+            { "id": "e-103", "type": "result", "text": "Világos Luca (3. o.) — 4. helyezett" },
+            { "id": "e-104", "type": "result", "text": "Pincehelyi Benedek (3. o.) — 6. helyezett" }
+          ]
+        },
+        {
+          "id": "cat-2425-2",
+          "title": "Sport – Atlétika",
+          "icon": "directions_run",
+          "entries": [
+            { "id": "e-201", "type": "result", "text": "Maróti Panni (7. o.) — Atlétika Diákolimpia Országos Döntő, 1. hely távolugrás (539 cm) — korosztályi „olimpiai bajnok”" },
+            { "id": "e-202", "type": "result", "text": "Sziveri Regő — „Kölyökből Atléta” kecskeméti döntő, 1. hely sípoló rakéta hajítás" },
+            { "id": "e-203", "type": "result", "text": "Kukla Regina (7. o.) — Diákolimpia 300 m, 3. hely" },
+            { "id": "e-204", "type": "result", "text": "Borbély Ramóna (8. o.) — Diákolimpia 300 m, 5. hely" },
+            { "id": "e-205", "type": "result", "text": "Bagi Barbara (7. o.) — Diákolimpia 60 m, 6. hely" },
+            { "id": "e-206", "type": "result", "text": "Maróti Panni — Diákolimpia egyéni többpróba, 1. hely — szintén országos döntőbe jutott" },
+            { "id": "e-207", "type": "note", "text": "A „Kis iskolák” országos döntőjét (Debrecen, jún. 22–25.) a Zoltánfyt képviseli: Maróti Panni, Kukla Regina, Moldován Kira, Borbély Ramóna Erika (svéd váltó, egyéni összetett, 600 m síkfutás)." }
+          ]
+        },
+        {
+          "id": "cat-2425-3",
+          "title": "Mesemondó verseny",
+          "icon": "record_voice_over",
+          "entries": [
+            { "id": "e-301", "type": "paragraph", "text": "20 tanuló nevezett a megmérettetésre, ahol szebbnél-szebb mesékkel álltak a zsűri elé." },
+            { "id": "e-302", "type": "result", "text": "1. osztály — I. Csige Léna, II. Tácsi Nikolasz, III. Pálinkás Dorina" },
+            { "id": "e-303", "type": "result", "text": "2. osztály — I. Román Botond, II. Papp Natasa Irina, III. Világos Luca, Kardos Johanna" },
+            { "id": "e-304", "type": "result", "text": "4. osztály — I. Terjék Miranda, II. Merczel Nikolett" },
+            { "id": "e-305", "type": "paragraph", "text": "A tankerületi mesemondó versenyen (november 21., Domaszéki Bálint Sándor Általános Iskola, 28 nevező) Papp Natasa Irina III. helyezést ért el." }
+          ]
+        },
+        {
+          "id": "cat-2425-4",
+          "title": "Angol próbanyelvvizsga",
+          "icon": "language",
+          "entries": [
+            { "id": "e-401", "type": "paragraph", "text": "A 8. évfolyam 21 tanulójából 17 fő érte el az alapszintű eredményt az írásbeli és szóbeli vizsga során." }
+          ]
+        },
+        {
+          "id": "cat-2425-5",
+          "title": "Kölyökatlétika – versenyeredmények",
+          "icon": "directions_run",
+          "entries": [
+            { "id": "e-501", "type": "subheading", "text": "Regionális egyéni döntő (október 19., Szeged)" },
+            { "id": "e-502", "type": "result", "text": "Maróti Panni (6. o.) — magasugrás és távolugrás, 1-1. hely — továbbjutott az országos döntőbe" },
+            { "id": "e-503", "type": "subheading", "text": "Városi csapatverseny (október 20.)" },
+            { "id": "e-504", "type": "result", "text": "U8 csapat — 2. hely (Gyozsán Regina, Kardos Johanna, Konkoly Balázs, Kovács Ágnes, Kőrösi Tamás, Minkó Hanna, Papp Benedek, Román Botond, Sziveri Regő)" },
+            { "id": "e-505", "type": "result", "text": "U10 csapat — 2. hely (Cid Barsi Marcell, Csikós Diána, Faragó Balázs, Konkoly Anna, Lázár Anna, Makra Kamilla, Moldován Kíra, Nagy Eszter, Vikor Lili)" },
+            { "id": "e-506", "type": "result", "text": "U12 — Maróti Panni, Terjék Miranda (Szegedi RSC csapatában) — 1. hely" },
+            { "id": "e-507", "type": "subheading", "text": "Regionális csapatdöntő (november 8.)" },
+            { "id": "e-508", "type": "result", "text": "U8 csapat — 2. hely" },
+            { "id": "e-509", "type": "result", "text": "U10 csapat — 1. hely" },
+            { "id": "e-510", "type": "result", "text": "U12 — Maróti Panni, Terjék Miranda (Szegedi RSC) — 1. hely" }
+          ]
+        },
+        {
+          "id": "cat-2425-6",
+          "title": "Alföldi AszC Kiss Ferenc Erdészeti Technikum – pályaorientáció",
+          "icon": "forest",
+          "entries": [
+            { "id": "e-601", "type": "result", "text": "Csapatverseny 1. helyezett — Gyorgyev Dávor, Pocsai Kevin, László Benett, Tóth Dominik, Nagy Dávid" }
+          ]
+        },
+        {
+          "id": "cat-2425-7",
+          "title": "Irodalom – Kis Alkotók Köre (3. forduló)",
+          "icon": "menu_book",
+          "entries": [
+            { "id": "e-701", "type": "result", "text": "Papp Eszter — vers (haiku) kategória, 1. helyezett" },
+            { "id": "e-702", "type": "result", "text": "Simity Anna — novella kategória, 2. helyezett" },
+            { "id": "e-703", "type": "result", "text": "Kukla Regina — vers kategória, 4. helyezett" }
+          ]
+        },
+        {
+          "id": "cat-2425-8",
+          "title": "Költészet napi szavalóverseny",
+          "icon": "record_voice_over",
+          "entries": [
+            { "id": "e-801", "type": "paragraph", "text": "Április 10-én a városi szavalóverseny résztvevőjeként Kószó Levente (5. o.) kiemelkedő színvonalú előadással képviselte intézményünket." }
+          ]
+        }
+      ]
+    }
+  ]
+}

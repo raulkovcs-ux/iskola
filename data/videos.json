@@ -1,0 +1,54 @@
+{
+  "years": [
+    {
+      "id": "y-2425",
+      "label": "2024–2025. tanév",
+      "videos": [
+        { "id": "v-001", "youtubeId": "bIH9fZn4Cmg", "title": "A magyar költészet napja", "subtitle": "2025. április 11." }
+      ]
+    },
+    {
+      "id": "y-2223",
+      "label": "2022–2023. tanév",
+      "videos": [
+        { "id": "v-002", "youtubeId": "eSTFPL6wqWo", "title": "Október 23. megemlékezés", "subtitle": "7. osztály műsora" }
+      ]
+    },
+    {
+      "id": "y-2122",
+      "label": "2021–2022. tanév",
+      "videos": [
+        { "id": "v-003", "youtubeId": "HwYEi4jHcLY", "title": "Március 15. megemlékezés", "subtitle": "2022" }
+      ]
+    },
+    {
+      "id": "y-2021",
+      "label": "2020–2021. tanév",
+      "videos": [
+        { "id": "v-004", "youtubeId": "nT9Q94Wnra0", "title": "Újra a természet", "subtitle": "„Kis biokertészek örömtánca”" },
+        { "id": "v-005", "youtubeId": "u62j_JuaWm8", "title": "Magyar kultúra napja", "subtitle": "Megemlékezés" },
+        { "id": "v-006", "youtubeId": "9E1sjI6sBs0", "title": "Karácsonyi üdvözlet", "subtitle": "2020" }
+      ]
+    },
+    {
+      "id": "y-1617",
+      "label": "2016–2017. tanév",
+      "videos": [
+        { "id": "v-007", "youtubeId": "DLwfHlyV4Yo", "title": "Karácsonyi animációk", "subtitle": "2016" }
+      ]
+    },
+    {
+      "id": "y-1516",
+      "label": "2015–2016. tanév",
+      "videos": [
+        { "id": "v-008", "youtubeId": "-6j--J7z7bA", "title": "Október 23. megemlékezés", "subtitle": "2015" },
+        { "id": "v-009", "youtubeId": "JodrXgHfbMo", "title": "Együtt Szaval a Nemzet", "subtitle": "Felvétel" },
+        { "id": "v-010", "youtubeId": "hI4wY371DXY", "title": "Zoltánfy István képzőművészeti pályázat", "subtitle": "Beérkezett videó – 1." },
+        { "id": "v-011", "youtubeId": "_LlwEyD04Gk", "title": "Zoltánfy István képzőművészeti pályázat", "subtitle": "Beérkezett videó – 2." },
+        { "id": "v-012", "youtubeId": "V6OilepMHy8", "title": "Zoltánfy István képzőművészeti pályázat", "subtitle": "Beérkezett videó – 3." },
+        { "id": "v-013", "youtubeId": "Zbqg8UeYUYw", "title": "Zoltánfy István képzőművészeti pályázat", "subtitle": "Beérkezett videó – 4." },
+        { "id": "v-014", "youtubeId": "JEUOTbrC8NY", "title": "Zoltánfy István képzőművészeti pályázat", "subtitle": "Beérkezett videó – 5." }
+      ]
+    }
+  ]
+}

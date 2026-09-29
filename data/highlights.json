@@ -1,0 +1,68 @@
+{
+  "spotlights": [
+    { "id": "s-001", "color": "gold", "icon": "emoji_events", "title": "Atlétikai sikerek", "description": "Tanulóink rendre kerületi, városi és országos szintű atlétikai döntőkbe jutnak. Maróti Panni 2025-ben országos bajnok lett távolugrásban.", "badge": "Diákolimpia" },
+    { "id": "s-002", "color": "teal", "icon": "park", "title": "1 500 m² iskolakert", "description": "60 gyümölcsfával és gyógynövényekkel teli iskolakertünk a természetismereti nevelés élő terepe. Tanulóink maguk gondozzák, vetik és szüretelik.", "badge": "Környezeti nevelés" },
+    { "id": "s-003", "color": "navy", "icon": "language", "title": "Kínai nyelv és kultúra", "description": "A Szegedi Konfuciusz Intézettel együttműködve kínai nyelvet tanítunk. Egyedülálló lehetőség általános iskolás szinten a régióban.", "badge": "Konfuciusz program" },
+    { "id": "s-004", "color": "gold", "icon": "favorite", "title": "Boldogiskola program", "description": "A KEVE és Kék tér programokkal együtt közösségi és mentális jóllétet helyezünk a mindennapok középpontjába — mert az iskola nemcsak tudás, hanem biztonság is.", "badge": "Jóllét & közösség" },
+    { "id": "s-005", "color": "teal", "icon": "directions_run", "title": "Aktív Iskola Program", "description": "A testmozgás beépül a mindennapokba: kölyökatlétika, sportnap, Country Olimpia — iskolánk az egészséges életmód elkötelezett híve.", "badge": "Sport minden nap" },
+    { "id": "s-006", "color": "navy", "icon": "menu_book", "title": "Irodalmi tehetségek", "description": "A Kis Alkotók Köre versenyen tanulóink vers és novella kategóriában is dobogóra álltak. Szavalóversenyeinken évről évre kiemelkedő teljesítményt nyújtanak.", "badge": "Irodalom & vers" }
+  ],
+  "students": [
+    {
+      "id": "st-001",
+      "name": "Maróti Panni",
+      "description": "7. évfolyam · Atlétika",
+      "medals": [
+        { "id": "m-001", "type": "gold", "text": "Országos bajnok – távolugrás (539 cm)" },
+        { "id": "m-002", "type": "gold", "text": "Országos bajnok – egyéni többpróba" },
+        { "id": "m-003", "type": "gold", "text": "Kölyökatlétika – magasugrás & távolugrás 1. hely" }
+      ]
+    },
+    {
+      "id": "st-002",
+      "name": "Papp Natasa Irina",
+      "description": "3. évfolyam · Természetismeret & Mesemondás",
+      "medals": [
+        { "id": "m-004", "type": "bronze", "text": "Herman Ottó verseny – 3. hely (országos döntő)" },
+        { "id": "m-005", "type": "bronze", "text": "Tankerületi mesemondó verseny – 3. hely" }
+      ]
+    },
+    {
+      "id": "st-003",
+      "name": "Papp Eszter",
+      "description": "Irodalom · Kis Alkotók Köre",
+      "medals": [
+        { "id": "m-006", "type": "gold", "text": "Vers (haiku) kategória – 1. helyezett" }
+      ]
+    },
+    {
+      "id": "st-004",
+      "name": "Simity Anna",
+      "description": "Irodalom · Kis Alkotók Köre",
+      "medals": [
+        { "id": "m-007", "type": "silver", "text": "Novella kategória – 2. helyezett" }
+      ]
+    },
+    {
+      "id": "st-005",
+      "name": "Kukla Regina",
+      "description": "7. évfolyam · Atlétika & Irodalom",
+      "medals": [
+        { "id": "m-008", "type": "bronze", "text": "Diákolimpia 300 m – 3. hely" },
+        { "id": "m-009", "type": "silver", "text": "Kis Alkotók Köre – vers kategória 4. hely" }
+      ]
+    },
+    {
+      "id": "st-006",
+      "name": "Gyorgyev Dávor, Pocsai Kevin, László Benett, Tóth Dominik, Nagy Dávid",
+      "description": "Erdészeti pályaorientációs verseny",
+      "medals": [
+        { "id": "m-010", "type": "gold", "text": "Csapatverseny – 1. helyezett (Alföldi AszC Kiss Ferenc Erdészeti Technikum)" }
+      ]
+    }
+  ],
+  "infoBox": {
+    "title": "Angol próbanyelvvizsga – 2024/2025.",
+    "text": "A 8. évfolyam 21 tanulójából 17 fő (81%) érte el az alapszintű eredményt az írásbeli és szóbeli vizsga során."
+  }
+}

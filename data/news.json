@@ -1,0 +1,76 @@
+{
+  "articles": [
+    {
+      "id": "news-001",
+      "year": 2026,
+      "month": 3,
+      "title": "Március 15. – ünnepi megemlékezés a Faluházban",
+      "body": "Iskolánk diákjai idén is méltó módon emlékeztek meg az 1848–49-es szabadságharc eseményeiről. Az ünnepséget március 13-án a Faluházban tartottuk, ahol a 6. osztályos tanulók versekkel, prózai részletekkel és zenei betétekkel idézték fel a forradalom eseményeit. Az ünnepségre meghívtuk az óvoda nagycsoportosait és a szerb iskola tanulóit is. A műsort Bánfi Zsófia osztályfőnök szervezte.",
+      "featured": true,
+      "createdAt": "2026-03-14"
+    },
+    {
+      "id": "news-002",
+      "year": 2026,
+      "month": 3,
+      "title": "Jó gyakorlatok az óvoda-iskola átmenetben",
+      "body": "Március 13-án intézményünkbe látogatott Dr. Balatoni Katalin miniszterelnöki biztos asszony. Megtekintette beiskolázási programunk jó gyakorlatait, és részt vett egy Aktív Iskolás tanórán, egy Boldogságórán, valamint egy Sakkpalota program keretében tartott magyarórán. A kreativitás kibontakoztatása az alsó tagozatosok munkáiban is megmutatkozott: a gyerekek rajzokat készítettek álmaik autójáról, amelyekből kültéri kiállítást rendeztünk.",
+      "featured": false,
+      "createdAt": "2026-03-13"
+    },
+    {
+      "id": "news-003",
+      "year": 2026,
+      "month": 3,
+      "title": "Junior Diáksportfesztiválon jártak az első osztályosok",
+      "body": "Iskolánk első osztályos tanulói március 10-én vidám és mozgalmas programon vehettek részt a Janikovszky Éva Általános Iskola által szervezett junior diáksportfesztiválon, amelyen 4 iskola kisdiákjai sportolhattak kedvükre. A gyerekek vegyes csapatokban akadálypályákon, labdás és ügyességi játékokban próbálhatták ki magukat.",
+      "featured": false,
+      "createdAt": "2026-03-10"
+    },
+    {
+      "id": "news-004",
+      "year": 2026,
+      "month": 3,
+      "title": "Nyílt tanítási óra a leendő elsősök szüleinek",
+      "body": "Március 9-én az UgróDeszka beiskolázási program keretében a leendő első osztályos gyermekek szülei nyílt tanítási órán vehettek részt. A nyílt órát Deákné Bátky Judit tanítónő tartotta a 4. osztályban, magyar irodalom tantárgyból. A szülők testközelből figyeltek meg egy lendületes, jó hangulatú tanórát.",
+      "featured": false,
+      "createdAt": "2026-03-09"
+    },
+    {
+      "id": "news-005",
+      "year": 2026,
+      "month": 3,
+      "title": "Színházlátogatás – alsó tagozat",
+      "body": "Március 5-én az alsó tagozatos tanulók a Szegedi Nemzeti Színházban tekintették meg A csillagszemű juhász című népmese színpadi feldolgozását. A látványos jelmezek és a színészek játéka azonnal elvarázsolta a közönséget. Az előadás végén hatalmas tapsviharral köszönték meg a felejthetetlen élményt.",
+      "featured": false,
+      "createdAt": "2026-03-05"
+    },
+    {
+      "id": "news-006",
+      "year": 2026,
+      "month": 3,
+      "title": "Farsangi mulatság az iskolában",
+      "body": "A felsős farsang február 19-én zajlott, ahol a diákok vidám jelmezekbe öltözve élvezhették a programokat: jelmezverseny, tombola és farsangi diszko várta őket. A tanárok is beöltöztek, így még színesebb légkört teremtve.\n\nAz alsós farsangi délutánt február 27-én tartottuk. A földszinti termek összenyitása karneváli hangulatot árasztott. Lufifújó verseny, limbó, seprű- és újságpapírtánc és sok más program szórakoztatta a gyerekeket. A szülők által üzemeltetett büfé finom süteményekkel, szendvicsekkel és üdítőkkel várta a résztvevőket.",
+      "featured": false,
+      "createdAt": "2026-03-01"
+    },
+    {
+      "id": "news-007",
+      "year": 2026,
+      "month": 3,
+      "title": "Bűnmegelőzési nap az iskolában",
+      "body": "Február 27-én bűnmegelőzési napot szerveztünk a felső tagozatos diákok számára. Az előadásokat a Szegedi Rendőrkapitányság szakemberei tartották, akik közérthető formában mutatták be az online függőség, az alkohol- és droghasználat, az iskolai bántalmazás (bullying), az internetes csalások és az adatvédelem témaköreit.\n\nA nap egyik leglátványosabb része a judo-önvédelmi technikák bemutatója volt, ahol a tanulók megismerhették az alapvető önvédelmi fogásokat.",
+      "featured": false,
+      "createdAt": "2026-02-27"
+    },
+    {
+      "id": "news-008",
+      "year": 2026,
+      "month": 3,
+      "title": "UgróDeszka – igazgatói tájékoztató a leendő elsősök szüleinek",
+      "body": "Február 26-án az UgróDeszka beiskolázási program keretében a tagintézmény-igazgató tájékoztatta a leendő első osztályos gyermekek szüleit az iskolakezdéssel kapcsolatos tudnivalókról: a tanulásszervezésről, az iskola programjairól és pedagógiai módszereiről.\n\nA programon jelen volt az iskolapszichológus és a szociális segítő is, akik bemutatták munkájukat és jelezték, hogy szükség esetén a szülők és tanulók bizalommal fordulhatnak hozzájuk. Az UgróDeszka program célja az óvoda-iskola átmenet megkönnyítése.",
+      "featured": false,
+      "createdAt": "2026-02-26"
+    }
+  ]
+}

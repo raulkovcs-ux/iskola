@@ -1,0 +1,116 @@
+{
+  "years": [
+    {
+      "year": 2025,
+      "documents": [
+        { "id": "doc-2025-1", "label": "2025. kompetenciamérés eredmények – felső tagozat", "icon": "analytics", "href": "Dokumentumok/kompetencia/2025/FeladatellatasihelyiOsszefoglalo_203618_3_OKM2025.pdf" },
+        { "id": "doc-2025-2", "label": "2025. kompetenciamérés eredmények – alsó tagozat", "icon": "analytics", "href": "Dokumentumok/kompetencia/2025/FeladatellatasihelyiOsszefoglalo_203618_2_OKM2025.pdf" }
+      ]
+    },
+    {
+      "year": 2024,
+      "documents": [
+        { "id": "doc-2024-1", "label": "2024. kompetenciamérés eredmények – felső tagozat", "icon": "analytics", "href": "Dokumentumok/kompetencia/2024/FeladatellatasihelyiOsszefoglalo_203618_3_OKM2024.pdf" },
+        { "id": "doc-2024-2", "label": "2024. kompetenciamérés eredmények – alsó tagozat", "icon": "analytics", "href": "Dokumentumok/kompetencia/2024/FeladatellatasihelyiOsszefoglalo_203618_2_OKM2024.pdf" }
+      ]
+    },
+    {
+      "year": 2022,
+      "documents": [
+        { "id": "doc-2022-1", "label": "2022. matematika + szövegértés + természettudomány + angol – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2022/AltIsk_08_evfolyam_Mat_Szov_Term_Angol_OKM2022.pdf" },
+        { "id": "doc-2022-2", "label": "2022. matematika + szövegértés + természettudomány + angol – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2022/AltIsk_06_evfolyam_Mat_Szov_Term_Angol_OKM2022.pdf" }
+      ]
+    },
+    {
+      "year": 2021,
+      "documents": [
+        { "id": "doc-2021-1", "label": "2021. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2021/Telephelyi_200909_5_AltIsk_08_OKM2021.pdf" },
+        { "id": "doc-2021-2", "label": "2021. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2021/Telephelyi_200909_5_AltIsk_06_OKM2021.pdf" }
+      ]
+    },
+    {
+      "year": 2019,
+      "documents": [
+        { "id": "doc-2019-1", "label": "2019. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2019/Telephelyi_200909_5_AltIsk_08_OKM2019.pdf" },
+        { "id": "doc-2019-2", "label": "2019. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2019/Telephelyi_200909_5_AltIsk_06_OKM2019.pdf" }
+      ]
+    },
+    {
+      "year": 2018,
+      "documents": [
+        { "id": "doc-2018-1", "label": "2018. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2018/Telephelyi_200909_5_AltIsk_08_OKM2018.pdf" },
+        { "id": "doc-2018-2", "label": "2018. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2018/Telephelyi_200909_5_AltIsk_06_OKM2018.pdf" }
+      ]
+    },
+    {
+      "year": 2017,
+      "documents": [
+        { "id": "doc-2017-1", "label": "2017. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2017/Telephelyi_200909_5_AltIsk_08_OKM2017.pdf" },
+        { "id": "doc-2017-2", "label": "2017. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2017/Telephelyi_200909_5_AltIsk_06_OKM2017.pdf" }
+      ]
+    },
+    {
+      "year": 2016,
+      "documents": [
+        { "id": "doc-2016-1", "label": "2016. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2016/Telephelyi_200909_5_AltIsk_08_OKM2016.pdf" },
+        { "id": "doc-2016-2", "label": "2016. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2016/Telephelyi_200909_5_AltIsk_06_OKM2016.pdf" }
+      ]
+    },
+    {
+      "year": 2015,
+      "documents": [
+        { "id": "doc-2015-1", "label": "2015. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2015/Telephelyi_200909_5_AltIsk_08_OKM2015.pdf" },
+        { "id": "doc-2015-2", "label": "2015. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2015/Telephelyi_200909_5_AltIsk_06_OKM2015.pdf" }
+      ]
+    },
+    {
+      "year": 2014,
+      "documents": [
+        { "id": "doc-2014-1", "label": "2014. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2014/Telephelyi_200909_5_AltIsk_08_OKM2014.pdf" },
+        { "id": "doc-2014-2", "label": "2014. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2014/Telephelyi_200909_5_AltIsk_06_OKM2014.pdf" }
+      ]
+    },
+    {
+      "year": 2013,
+      "documents": [
+        { "id": "doc-2013-1", "label": "2013. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2013/Telephelyi_200909_5_AltIsk_2014_8o.pdf" },
+        { "id": "doc-2013-2", "label": "2013. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2013/Telephelyi_200909_5_AltIsk_2014_6o.pdf" }
+      ]
+    },
+    {
+      "year": 2012,
+      "documents": [
+        { "id": "doc-2012-1", "label": "2012. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2012/Telephelyi_200909_5_AltIsk_2013_8o.pdf" },
+        { "id": "doc-2012-2", "label": "2012. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2012/Telephelyi_200909_5_AltIsk_2013_6o.pdf" }
+      ]
+    },
+    {
+      "year": 2011,
+      "documents": [
+        { "id": "doc-2011-1", "label": "2011. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2011/Telephelyi_200909_5_AltIsk_2012_8o.pdf" },
+        { "id": "doc-2011-2", "label": "2011. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2011/Telephelyi_200909_5_AltIsk_2012_6o.pdf" }
+      ]
+    },
+    {
+      "year": 2010,
+      "documents": [
+        { "id": "doc-2010-1", "label": "2010. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2010/Intezmenyi_200909_0_0_2011_8o.pdf" },
+        { "id": "doc-2010-2", "label": "2010. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2010/Intezmenyi_200909_0_0_2011_6o.pdf" }
+      ]
+    },
+    {
+      "year": 2009,
+      "documents": [
+        { "id": "doc-2009-1", "label": "2009. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2009/Telephelyi_200909_5_AltIsk_2010_8o.pdf" },
+        { "id": "doc-2009-2", "label": "2009. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2009/Telephelyi_200909_5_AltIsk_2010_6o.pdf" }
+      ]
+    },
+    {
+      "year": 2008,
+      "documents": [
+        { "id": "doc-2008-1", "label": "2008. matematika + szövegértés – 8. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2008/Telephelyi_200909_5_AltIsk_2009_8o.pdf" },
+        { "id": "doc-2008-2", "label": "2008. matematika + szövegértés – 6. osztály", "icon": "analytics", "href": "Dokumentumok/kompetencia/2008/Telephelyi_200909_5_AltIsk_2009_6o.pdf" }
+      ]
+    }
+  ]
+}
