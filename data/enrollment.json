@@ -9,14 +9,59 @@
   "onlineUrl": "https://eugyintezes.e-kreta.hu/kezdolap",
   "onlineNote": "Csak előzetes adatszolgáltatás – a személyes megjelenés továbbra is szükséges!",
   "documents": [
-    { "id": "doc-001", "label": "Elektronikus adatszolgáltatás útmutató (PDF)", "icon": "description", "href": "Dokumentumok/beiratkozas/BAI_Szuloi_tajekoztato_2025.pdf" },
-    { "id": "doc-002", "label": "Szándéknyilatkozat", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/Szandeknyilatkozat.docx" },
-    { "id": "doc-003", "label": "Tanulói adatlap", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/ADATLAP_tanuloi.docx" },
-    { "id": "doc-004", "label": "Hit és erkölcstan nyilatkozat", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/Nyilatkozat_hit_erkolcstan.docx" },
-    { "id": "doc-005", "label": "Életvitelszerű lakcím nyilatkozat", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/Eletvitel_lakcim_nyilatkozat.docx" },
-    { "id": "doc-006", "label": "Törvényes képviselő nyilatkozat", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/Torvenyes_kepviselo_nyilatkozat.docx" },
-    { "id": "doc-007", "label": "Különélő szülő beleegyező nyilatkozata", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/Kulonelo_szulo_beleegyezese.docx" },
-    { "id": "doc-008", "label": "Délutáni elfoglaltság nyilatkozat", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/Delutani_elfoglaltsag_Felmentes.docx" },
-    { "id": "doc-009", "label": "Fénykép- és videó hozzájáruló nyilatkozat", "icon": "edit_document", "href": "Dokumentumok/beiratkozas/HOZZÁJÁRULÓ%20NYILATKOZAT%20fénykép%20és%20video.docx" }
+    {
+      "id": "doc-001",
+      "label": "Elektronikus adatszolgáltatás útmutató (PDF)",
+      "icon": "description",
+      "href": "Dokumentumok/beiratkozas/BAI_Szuloi_tajekoztato_2025.pdf"
+    },
+    {
+      "id": "doc-002",
+      "label": "Szándéknyilatkozat",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/Szandeknyilatkozat.docx"
+    },
+    {
+      "id": "doc-003",
+      "label": "Tanulói adatlap",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/ADATLAP_tanuloi.docx"
+    },
+    {
+      "id": "doc-004",
+      "label": "Hit és erkölcstan nyilatkozat",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/Nyilatkozat_hit_erkolcstan.docx"
+    },
+    {
+      "id": "doc-005",
+      "label": "Életvitelszerű lakcím nyilatkozat",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/Eletvitel_lakcim_nyilatkozat.docx"
+    },
+    {
+      "id": "doc-006",
+      "label": "Törvényes képviselő nyilatkozat",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/Torvenyes_kepviselo_nyilatkozat.docx"
+    },
+    {
+      "id": "doc-007",
+      "label": "Különélő szülő beleegyező nyilatkozata",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/Kulonelo_szulo_beleegyezese.docx"
+    },
+    {
+      "id": "doc-008",
+      "label": "Délutáni elfoglaltság nyilatkozat",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/Delutani_elfoglaltsag_Felmentes.docx"
+    },
+    {
+      "id": "doc-009",
+      "label": "Fénykép- és videó hozzájáruló nyilatkozat",
+      "icon": "edit_document",
+      "href": "Dokumentumok/beiratkozas/HOZZÁJÁRULÓ%20NYILATKOZAT%20fénykép%20és%20video.docx"
+    }
   ]
 }
