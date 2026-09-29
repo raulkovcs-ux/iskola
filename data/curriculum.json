@@ -4,41 +4,186 @@
       "id": "sec-001",
       "title": "Kerettanterv az általános iskola 1–4. évfolyama számára",
       "documents": [
-        { "id": "doc-001", "label": "Magyar nyelv és irodalom 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Magyar_nyelv_es_irodalom_1-4.evfolyam.pdf" },
-        { "id": "doc-002", "label": "Matematika 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Matematika_1-4.evfolyam.pdf" },
-        { "id": "doc-003", "label": "Etika 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Etika_1-4.evfolyam.pdf" },
-        { "id": "doc-004", "label": "Környezetismeret 3–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Kornyezetismeret_3-4.evfolyam.pdf" },
-        { "id": "doc-005", "label": "Élő idegen nyelv – angol 4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Elo_idegen_nyelv_angol_4.evfolyam.pdf" },
-        { "id": "doc-006", "label": "Ének-zene 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Enek-zene_1-4.evfolyam.pdf" },
-        { "id": "doc-007", "label": "Vizuális kultúra 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Vizualis_kultura_1-4.evfolyam.pdf" },
-        { "id": "doc-008", "label": "Technika és tervezés 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Technika_es_tervezes_1-4.evfolyam.pdf" },
-        { "id": "doc-009", "label": "Digitális kultúra 3–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Digitalis_kultura_3-4.evfolyam.pdf" },
-        { "id": "doc-010", "label": "Testnevelés 1–4. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Testneveles_1-4.evfolyam.pdf" }
+        {
+          "id": "doc-001",
+          "label": "Magyar nyelv és irodalom 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Magyar_nyelv_es_irodalom_1-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-002",
+          "label": "Matematika 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Matematika_1-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-003",
+          "label": "Etika 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Etika_1-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-004",
+          "label": "Környezetismeret 3–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Kornyezetismeret_3-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-005",
+          "label": "Élő idegen nyelv – angol 4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Elo_idegen_nyelv_angol_4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-006",
+          "label": "Ének-zene 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Enek-zene_1-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-007",
+          "label": "Vizuális kultúra 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Vizualis_kultura_1-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-008",
+          "label": "Technika és tervezés 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Technika_es_tervezes_1-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-009",
+          "label": "Digitális kultúra 3–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Digitalis_kultura_3-4.evfolyam.pdf"
+        },
+        {
+          "id": "doc-010",
+          "label": "Testnevelés 1–4. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Testneveles_1-4.evfolyam.pdf"
+        }
       ]
     },
     {
       "id": "sec-002",
       "title": "Kerettanterv az általános iskola 5–8. évfolyama számára",
       "documents": [
-        { "id": "doc-011", "label": "Magyar nyelv és irodalom 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Magyar_nyelv_es_irodalom_5-8.evfolyam.pdf" },
-        { "id": "doc-012", "label": "Matematika 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Matematika_5-8.evfolyam.pdf" },
-        { "id": "doc-013", "label": "Történelem 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Tortenelem_5-8.evfolyam.pdf" },
-        { "id": "doc-014", "label": "Állampolgári ismeretek 8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Allampolgari_ismeretek_8.evfolyam.pdf" },
-        { "id": "doc-015", "label": "Hon- és népismeret 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Hon_es_nepismeret_5-8.evfolyam.pdf" },
-        { "id": "doc-016", "label": "Etika 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Etika_5-8.evfolyam.pdf" },
-        { "id": "doc-017", "label": "Természettudomány 5–6. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Termeszettudomany_5-6.evfolyam.pdf" },
-        { "id": "doc-018", "label": "Kémia 7–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Kemia_7-8.evfolyam.pdf" },
-        { "id": "doc-019", "label": "Fizika 7–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Fizika_7-8.evfolyam.pdf" },
-        { "id": "doc-020", "label": "Biológia 7–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Biologia_7-8.evfolyam.pdf" },
-        { "id": "doc-021", "label": "Földrajz 7–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Foldrajz_7-8.evfolyam.pdf" },
-        { "id": "doc-022", "label": "Élő idegen nyelv – angol 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Elo_idegen_nyelv_angol_5-8.evfolyam.pdf" },
-        { "id": "doc-023", "label": "Ének-zene 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Enek-zene_5-8.evfolyam.pdf" },
-        { "id": "doc-024", "label": "Vizuális kultúra 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Vizualis_kultura_5-8.evfolyam.pdf" },
-        { "id": "doc-025", "label": "Dráma és színház 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Drama_es_szinhaz_5-8.evfolyam.pdf" },
-        { "id": "doc-026", "label": "Technika és tervezés 5–7. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Technika_es_tervezes_5-7.evfolyam.pdf" },
-        { "id": "doc-027", "label": "Digitális kultúra 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Digitalis_kultura_5-8.evfolyam.pdf" },
-        { "id": "doc-028", "label": "Testnevelés 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Testneveles_5-8.evfolyam.pdf" },
-        { "id": "doc-029", "label": "Közösségi nevelés (osztályfőnöki) 5–8. évfolyam", "icon": "menu_book", "href": "Dokumentumok/helyi_tanterv/Kozossegi_neveles_osztalyfonoki_5-8.evfolyam.pdf" }
+        {
+          "id": "doc-011",
+          "label": "Magyar nyelv és irodalom 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Magyar_nyelv_es_irodalom_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-012",
+          "label": "Matematika 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Matematika_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-013",
+          "label": "Történelem 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Tortenelem_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-014",
+          "label": "Állampolgári ismeretek 8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Allampolgari_ismeretek_8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-015",
+          "label": "Hon- és népismeret 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Hon_es_nepismeret_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-016",
+          "label": "Etika 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Etika_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-017",
+          "label": "Természettudomány 5–6. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Termeszettudomany_5-6.evfolyam.pdf"
+        },
+        {
+          "id": "doc-018",
+          "label": "Kémia 7–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Kemia_7-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-019",
+          "label": "Fizika 7–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Fizika_7-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-020",
+          "label": "Biológia 7–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Biologia_7-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-021",
+          "label": "Földrajz 7–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Foldrajz_7-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-022",
+          "label": "Élő idegen nyelv – angol 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Elo_idegen_nyelv_angol_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-023",
+          "label": "Ének-zene 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Enek-zene_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-024",
+          "label": "Vizuális kultúra 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Vizualis_kultura_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-025",
+          "label": "Dráma és színház 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Drama_es_szinhaz_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-026",
+          "label": "Technika és tervezés 5–7. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Technika_es_tervezes_5-7.evfolyam.pdf"
+        },
+        {
+          "id": "doc-027",
+          "label": "Digitális kultúra 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Digitalis_kultura_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-028",
+          "label": "Testnevelés 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Testneveles_5-8.evfolyam.pdf"
+        },
+        {
+          "id": "doc-029",
+          "label": "Közösségi nevelés (osztályfőnöki) 5–8. évfolyam",
+          "icon": "menu_book",
+          "href": "Dokumentumok/helyi_tanterv/Kozossegi_neveles_osztalyfonoki_5-8.evfolyam.pdf"
+        }
       ]
     }
   ]
