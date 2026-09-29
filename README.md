@@ -1,5 +1,5 @@
-  ZOLTÁNFY ISKOLA – ADMIN FELÜLET
-  Használati útmutató
+ZOLTÁNFY ISKOLA – ADMIN FELÜLET
+Használati útmutató
 =====================================================================
 
 Ezzel a felülettel az iskola weboldalának tartalmát (hírek, naptár,
@@ -8,8 +8,7 @@ módosíthatja. A változtatások a "Közzétesz" gombbal kerülnek fel a
 nyilvános weboldalra.
 
 
----------------------------------------------------------------------
-1. BELÉPÉS
+### 1. BELÉPÉS
 ---------------------------------------------------------------------
 1. Nyissa meg az admin oldalt a böngészőben:
       <weboldal címe>/admin/
@@ -27,8 +26,7 @@ FONTOS:
    rendszer rákérdez, hogy biztosan kilép-e.
 
 
----------------------------------------------------------------------
-2. A FELÜLET FELÉPÍTÉSE
+### 2. A FELÜLET FELÉPÍTÉSE
 ---------------------------------------------------------------------
  FELÜL (kék sáv):
    - "● Nem mentett változások" – narancssárga jelzés: van olyan
@@ -48,8 +46,7 @@ FONTOS:
    - Jobb oldalon a "Közzétesz" gomb.
 
 
----------------------------------------------------------------------
-3. AZ ALAPVETŐ MUNKAFOLYAMAT (ez a legfontosabb rész!)
+### 3. AZ ALAPVETŐ MUNKAFOLYAMAT (ez a legfontosabb rész!)
 ---------------------------------------------------------------------
    1) Lépjen be.
    2) Válassza ki a megfelelő fület.
@@ -72,11 +69,10 @@ minden a legutóbb közzétett állapotra áll vissza.
    ✕ vagy "Töröl"     – elem törlése (a sor/kártya eltűnik)
 
 
----------------------------------------------------------------------
-4. FÜLEK RÉSZLETESEN
+### 4. FÜLEK RÉSZLETESEN
 ---------------------------------------------------------------------
 
-4.1 HÍREK
+#### 4.1 HÍREK
    Bal oldalon a cikkek listája (legújabb elöl), jobb oldalon a
    szerkesztő.
    ÚJ CIKK:
@@ -93,13 +89,13 @@ minden a legutóbb közzétett állapotra áll vissza.
    felugró kérdést.
    A Cím és a Tartalom megadása kötelező.
 
-4.2 ESEMÉNYNAPTÁR
+#### 4.2 ESEMÉNYNAPTÁR
    - "Hónap felirata": a naptár címe, pl. "2026. április".
    - "+ Esemény hozzáadása": új sor jön létre – írja be a Dátumot,
      az Esemény nevét és a Felelőst.
    - ▲ ▼ gombokkal a sorrend módosítható, ✕ törli az eseményt.
 
-4.3 BEIRATKOZÁS
+#### 4.3 BEIRATKOZÁS
    - "Beiratkozási adatok": tanév, személyes beiratkozás dátuma,
      időpont, helyszín, online elérhetőség dátuma, e-KRÉTA link,
      figyelmeztető szöveg. Egyszerűen írja át a mezőket.
@@ -107,22 +103,22 @@ minden a legutóbb közzétett állapotra áll vissza.
      Adja meg a Megnevezést, válassza ki a típust (Informatív vagy
      Kitöltendő) és a fájl elérési útját (lásd 5. pont).
 
-4.4 HELYI TANTERVEK
+#### 4.4 HELYI TANTERVEK
    Szakaszokba rendezett dokumentumlista.
    - "+ Szakasz hozzáadása": új szakasz (pl. évfolyam-csoport).
    - Szakaszon belül "+ Dokumentum": Megnevezés + Fájl elérési útja.
    - "Töröl" a szakasz törlése (rákérdez).
 
-4.5 KOMPETENCIAMÉRÉS
+#### 4.5 KOMPETENCIAMÉRÉS
    Évek szerint csoportosított dokumentumok.
    - "+ Év hozzáadása", majd az évben "+ Dokumentum".
    - Megnevezés + Fájl elérési útja.
 
-4.6 TOVÁBBTANULÁS
+#### 4.6 TOVÁBBTANULÁS
    - "+ Bejegyzés hozzáadása": az új bejegyzés a lista ELEJÉRE kerül.
    - Megnevezés + Fájl elérési útja.
 
-4.7 BEISKOLÁZÁS
+#### 4.7 BEISKOLÁZÁS
    - "Kép elérési útja": a beiskolázási program képe (pl.
      beiskolazas/beiskolazas_2026-2027.jpg). Beírás közben
      előnézet jelenik meg alatta – ha nincs előnézet, az útvonal
@@ -130,11 +126,11 @@ minden a legutóbb közzétett állapotra áll vissza.
    - Kép alt szövege (látássérültek felolvasó programjának szánt
      leírás), Info szöveg, Link szövege, Link URL.
 
-4.8 SULIÚJSÁG
+#### 4.8 SULIÚJSÁG
    - "+ Évfolyam hozzáadása" (pl. "5. évfolyam"), azon belül
      "+ Szám": Megnevezés + Fájl elérési útja.
 
-4.9 VIDEÓK
+#### 4.9 VIDEÓK
    - "+ Tanév hozzáadása" (az új tanév a lista elejére kerül),
      azon belül "+ Videó".
    - YouTube ID: a YouTube-link azonosítója. Példa:
@@ -142,12 +138,12 @@ minden a legutóbb közzétett állapotra áll vissza.
         -> az ID:  bIH9fZn4Cmg
    - Cím és Felirat (pl. dátum).
 
-4.10 EREDMÉNYEK
+#### 4.10 EREDMÉNYEK
    - "+ Tanév hozzáadása" -> "+ Kategória" -> "+ Sor".
    - Minden sornak van "Típus"-a: Eredmény, Bekezdés, Alcím vagy
      Megjegyzés – ez határozza meg, hogyan jelenik meg a szöveg.
 
-4.11 BÜSZKESÉGEINK
+#### 4.11 BÜSZKESÉGEINK
    Három részből áll:
    a) Kiemelkedő területek (kártyák): "+ Kártya hozzáadása".
       "Módosítás" gombbal nyílik az Ikon és Szín választó.
@@ -157,8 +153,7 @@ minden a legutóbb közzétett állapotra áll vissza.
    c) Info box: Cím és Szöveg (pl. angol próbanyelvvizsga).
 
 
----------------------------------------------------------------------
-5. FÁJLOK (PDF-ek, képek) HOZZÁADÁSA – FONTOS!
+### 5. FÁJLOK (PDF-ek, képek) HOZZÁADÁSA – FONTOS!
 ---------------------------------------------------------------------
 Az admin felület csak a fájlok ELÉRÉSI ÚTJÁT rögzíti, magát a fájlt
 NEM tölti fel. Új PDF vagy kép esetén két lépés kell:
@@ -174,12 +169,11 @@ Tippek a fájlnevekhez: kerülje az ékezeteket és a szóközöket, használjon
 aláhúzást ( _ ). A kis- és nagybetű számít!
 
 
----------------------------------------------------------------------
-6. KÖZZÉTÉTEL – KÉT MÓD
+### 6. KÖZZÉTÉTEL – KÉT MÓD
 ---------------------------------------------------------------------
 A jobb felső kapcsolóval választhat:
 
-A) GitHub Pages (alapértelmezett)
+#### A) GitHub Pages (alapértelmezett)
    Első alkalommal (vagy új gépen) töltse ki a kék beállító sávot:
      - GitHub repo (tulajdonos/repo)
      - Branch (általában: main)
@@ -191,7 +185,7 @@ A) GitHub Pages (alapértelmezett)
    Siker: "Közzétéve! A GitHub Pages frissítése ~60 másodpercet vesz
    igénybe."
 
-B) FTP export
+#### B) FTP export
    1. Kattintson az "FTP export" gombra a jobb felső sarokban.
    2. Kattintson az "Exportálás (ZIP)" gombra – letölt egy
       data-export-DÁTUM.zip fájlt.
@@ -201,8 +195,7 @@ B) FTP export
       A felugró ablak lépésről lépésre végigvezeti ezen.
 
 
----------------------------------------------------------------------
-7. HIBAELHÁRÍTÁS
+### 7. HIBAELHÁRÍTÁS
 ---------------------------------------------------------------------
 "Néhány adatfájl nem töltődött be – ellenőrizze a /data/ mappát."
    -> Hiányzik vagy sérült egy fájl a /data/ mappából. Ne közzétegyen,
@@ -233,16 +226,10 @@ Elfelejtett jelszó.
    -> A jelszót a fejlesztő tudja módosítani; forduljon hozzá.
 
 
----------------------------------------------------------------------
-8. BIZTONSÁGI TANÁCSOK
+### 8. BIZTONSÁGI TANÁCSOK
 ---------------------------------------------------------------------
  - A jelszót és a GitHub tokent ne ossza meg, ne írja fel a
    monitorra.
  - Közös vagy nyilvános számítógépen ne mentse el a tokent, és
    használat után mindig jelentkezzen ki.
  - Rendszeresen (pl. tanévente) érdemes lecserélni a tokent.
-
-
----------------------------------------------------------------------
-Kérdés esetén forduljon a weboldal fejlesztőjéhez.
-=====================================================================
