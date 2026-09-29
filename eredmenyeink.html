@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eredményeink – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .year-section { margin-bottom: 40px; }
+    .year-section h2 { margin-bottom: 20px; }
+    .result-category { margin-bottom: 24px; }
+    .result-category h3 { font-size: 15px; font-weight: 600; color: var(--navy-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--gray-200); padding-bottom: 6px; }
+    .result-category h3 .material-icons { font-size: 18px; color: var(--teal); }
+    .result-item { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; padding: 5px 0; }
+    .result-item .material-icons { font-size: 16px; color: var(--amber-dark); flex-shrink: 0; margin-top: 2px; }
+    .result-item strong { color: var(--navy-dark); }
+  </style>
+</head>
+<body>
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Eredményeink</h1>
+      <p class="lead">Versenyek, sportteljesítmények és díjak.</p>
+    </div>
+    <div class="page-body">
+      <div id="results-container">
+        <p style="color:var(--gray-500);font-style:italic;">Betöltés...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/data-loader.js"></script>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hírek – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .news-year { margin-bottom: 40px; }
+    .news-month { margin-bottom: 32px; }
+    .news-month-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--navy-mid); margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+    .news-month-label .material-icons { font-size: 16px; }
+    .news-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; }
+    .news-card h3 { font-size: 16px; font-weight: 600; color: var(--navy-dark); margin-bottom: 8px; }
+    .news-card p { font-size: 14px; color: var(--gray-700); line-height: 1.65; margin: 0; }
+    .news-card p + p { margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Iskolai hírek</h1>
+    </div>
+    <div class="page-body">
+      <div id="news-container">
+        <p style="color:var(--gray-500);font-style:italic;">Hírek betöltése...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/data-loader.js"></script>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

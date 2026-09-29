@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iskolapszichológus – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .pszich-header { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; margin-bottom: 32px; }
+    .contact-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--navy-light); color: var(--navy-dark); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 500; text-decoration: none; margin: 4px 4px 4px 0; }
+    .contact-pill .material-icons { font-size: 16px; color: var(--navy-mid); }
+    .segitseg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0; }
+    .segitseg-item { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; padding: 6px 0; }
+    .segitseg-item .material-icons { font-size: 16px; color: var(--teal); flex-shrink: 0; margin-top: 2px; }
+    @media (max-width: 700px) { .pszich-header, .segitseg-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Iskolapszichológus</h1>
+    </div>
+    <div class="page-body">
+
+      <div class="info-box" style="margin-bottom: 28px;">
+        <span class="material-icons info-box-icon">psychology</span>
+        <div>
+          <strong>Bagó Ildikó</strong> — klinikai és mentálhigiénés szakpszichológus<br>
+          Elérhetőség: <a href="mailto:bago.ildiko@sztejki.hu">bago.ildiko@sztejki.hu</a><br>
+          Fogadóóra: kedd 10:00–16:00, az iskolában — előzetes bejelentkezéssel
+        </div>
+      </div>
+
+      <div class="doc-links" style="margin-bottom: 28px;">
+        <a class="doc-link" href="Dokumentumok/pszichologus_adatkezeles.pdf" target="_blank">
+          <span class="material-icons">description</span> Adatkezelési nyilatkozat
+        </a>
+        <a class="doc-link" href="Dokumentumok/pszichologus_szuloi_hozzajarulas.pdf" target="_blank">
+          <span class="material-icons">description</span> Szülői hozzájáruló nyilatkozat
+        </a>
+      </div>
+
+      <h2>Mit csinál az iskolapszichológus?</h2>
+      <ul>
+        <li>Elősegíti az oktatás hatékonyságát</li>
+        <li>Támogatja a tanulók személyiségfejlődését és mentális egészségét</li>
+        <li>Segíti a pedagógusokat munkájukban</li>
+        <li>Egyéni vagy csoportos formában dolgozik a tanulókkal</li>
+        <li>Részt vesz szülői értekezleteken, együttműködik szakintézményekkel</li>
+        <li>Pályaorientációs tanácsadást nyújt egyéneknek és csoportoknak</li>
+      </ul>
+
+      <h2>Miben tud segíteni?</h2>
+      <div class="segitseg-grid">
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Tanulási nehézségek</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Figyelmi és motivációs problémák</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Beilleszkedési nehézségek</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Érzelemkezelési problémák</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Tanulói konfliktusok</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Szülő–iskola konfliktusok</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Alacsony önbizalom, visszahúzódás</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Vizsgaszorongás, teljesítménystressz</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Kapcsolati nehézségek (társak, barátok)</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Pályaválasztás, továbbtanulás</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Szorongás, magány</div>
+        <div class="segitseg-item"><span class="material-icons">check_circle</span> Krízistanácsadás</div>
+      </div>
+
+      <div class="info-box" style="margin-top: 28px;">
+        <span class="material-icons info-box-icon">info</span>
+        <div>
+          A szolgáltatás <strong>ingyenes és önkéntes</strong>. Titoktartási kötelezettség vonatkozik rá. Kiskorú tanuló esetén szülői hozzájárulás szükséges. Nem minősül egészségügyi ellátásnak, nem terápia.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

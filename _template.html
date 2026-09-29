@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ================================================
+    SZERKESZD: az oldal neve (böngésző fülön megjelenik)
+  ================================================ -->
+  <title>OLDAL NEVE – Zoltánfy István Iskola</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <!-- A fejléc topbar, navigáció és lábléc automatikusan épül fel.
+       Nem kell szerkeszteni, a nav-data.js vezérli. -->
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <!-- ================================================
+    SZERKESZD: az oldal tartalma
+    Az alábbi részt szabadon módosíthatod.
+  ================================================ -->
+  <div class="page-content">
+
+    <!-- Oldal fejléce -->
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>OLDAL NEVE</h1>
+      <p class="lead">
+        Rövid bevezető szöveg (opcionális – törölhető).
+      </p>
+    </div>
+
+    <!-- Oldal tartalma -->
+    <div class="page-body">
+
+      <p>
+        Ide kerül a szöveges tartalom. A bekezdéseket &lt;p&gt; tagek közé kell írni.
+      </p>
+
+      <!-- Alcím példa -->
+      <h2>Alcím</h2>
+      <p>
+        A szöveg folytatódik...
+      </p>
+
+      <!-- Lista példa -->
+      <ul>
+        <li>Első pont</li>
+        <li>Második pont</li>
+        <li>Harmadik pont</li>
+      </ul>
+
+      <!-- Kiemelő doboz példa -->
+      <div class="info-box">
+        <span class="material-icons info-box-icon">lightbulb</span>
+        Fontos információ kerülhet ide, pl. határidő, tudnivaló.
+      </div>
+
+      <!-- Dokumentum linkek példa -->
+      <div class="doc-links">
+        <a class="doc-link" href="Dokumentumok/SZKLAI_HÁZIREND.pdf" target="_blank">
+          <span class="material-icons">description</span> Házirend (PDF)
+        </a>
+        <a class="doc-link" href="Dokumentumok/SZKLAI_PED_PROGRAM.pdf" target="_blank">
+          <span class="material-icons">description</span> Pedagógiai Program (PDF)
+        </a>
+      </div>
+
+    </div>
+    <!-- /page-body -->
+
+  </div>
+  <!-- /page-content -->
+
+  <!-- Lábléc automatikusan épül fel -->
+  <div id="site-footer"></div>
+
+  <!-- Scriptek – ne mozgasd el, mindig a </body> előtt legyenek -->
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+
+</body>
+</html>

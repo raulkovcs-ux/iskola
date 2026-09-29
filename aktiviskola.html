@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aktív iskola program – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0; }
+    .cert-card {
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+    .cert-card .material-icons { font-size: 32px; margin-bottom: 8px; display: block; }
+    .cert-card strong { display: block; font-size: 14px; color: var(--navy-dark); }
+    @media (max-width: 700px) { .cert-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Aktív iskola program</h1>
+      <p class="lead">Iskolánk tagja az Aktív Iskola programnak, amely több mint 300 intézményt fog össze Magyarországon.</p>
+    </div>
+    <div class="page-body">
+
+      <h2>A program célja</h2>
+      <p>Az Aktív Iskola program arra ösztönzi az iskolákat, hogy a mozgást ne csupán a testnevelés órákon valósítsák meg, hanem:</p>
+      <ul>
+        <li>tanítás előtt, tanítás közben, szünetekben és délutáni foglalkozásokon egyaránt</li>
+        <li>változatos sport- és mozgáslehetőségeket biztosítsanak</li>
+        <li>rendszeres testmozgással támogassák a tanulók testi és lelki fejlődését</li>
+      </ul>
+
+      <h2>Minősítési szintek</h2>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <span class="material-icons" style="color: var(--gray-400);">sports_soccer</span>
+          <strong>Klub szint</strong>
+        </div>
+        <div class="cert-card">
+          <span class="material-icons" style="color: #cd7f32;">workspace_premium</span>
+          <strong>Bronz</strong>
+        </div>
+        <div class="cert-card">
+          <span class="material-icons" style="color: #aaa;">workspace_premium</span>
+          <strong>Ezüst</strong>
+        </div>
+        <div class="cert-card">
+          <span class="material-icons" style="color: var(--amber);">workspace_premium</span>
+          <strong>Arany</strong>
+        </div>
+      </div>
+
+      <p>Az iskola pontokat gyűjt és minősítéseket szerez a mozgásprogramok megvalósításáért, közösségi és intézményi támogatással segítve az egészséges, aktív életmód kialakítását.</p>
+
+      <div class="info-box">
+        <span class="material-icons info-box-icon">open_in_new</span>
+        <div>
+          Iskolánk szerepel az aktív iskolák nyilvántartásában:
+          <a href="https://www.aktiviskola.hu/aktiv-iskolak/" target="_blank" rel="noopener">aktiviskola.hu/aktiv-iskolak</a><br>
+          Bővebb információ: <a href="https://www.aktiviskola.hu" target="_blank" rel="noopener">aktiviskola.hu</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

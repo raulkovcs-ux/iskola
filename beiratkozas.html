@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beiratkozás – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .beiratkozas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+    .beiratkozas-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .beiratkozas-card h3 {
+      font-family: var(--font-heading);
+      font-size: 18px; font-weight: 600;
+      color: var(--navy-dark); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .beiratkozas-card h3 .material-icons { color: var(--navy-mid); font-size: 22px; }
+    .beiratkozas-card p, .beiratkozas-card li { font-size: 15px; }
+    .date-highlight {
+      background: var(--amber-light);
+      border-left: 4px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 15px; color: var(--amber-dark);
+    }
+    .date-highlight strong { display: block; font-size: 18px; margin-bottom: 4px; }
+    @media (max-width: 700px) { .beiratkozas-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Beiratkozás</h1>
+      <p class="lead">Az iskolakezdő elsősök beiratkozása a fenntartó által meghatározott időpontban történik.</p>
+    </div>
+
+    <div class="page-body">
+
+      <div id="beiratkozas-grid-container">
+        <!-- data-loader.js tölti be -->
+      </div>
+
+      <h2>A beiratkozáshoz szükséges dokumentumok</h2>
+      <ul>
+        <li>Gyermek TAJ kártyája</li>
+        <li>A gyermek és a szülő személyi igazolványa és lakcímkártyája</li>
+      </ul>
+
+      <h2>Kitöltendő nyilatkozatok</h2>
+      <p>Az alábbi nyomtatványokat a szülő kitöltve magával hozhatja a gyorsabb ügyintézés érdekében.</p>
+      <div id="beiratkozas-docs-container">
+        <!-- data-loader.js tölti be -->
+      </div>
+
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/data-loader.js"></script>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

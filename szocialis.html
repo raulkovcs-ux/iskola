@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szociális segítő – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .segito-layout { display: grid; grid-template-columns: 1fr 260px; gap: 40px; align-items: start; margin-top: 8px; }
+    .segito-photo { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-200); box-shadow: 0 4px 20px rgba(4,44,83,0.08); }
+    .segito-photo img { display: block; width: 100%; }
+    @media (max-width: 700px) { .segito-layout { grid-template-columns: 1fr; } .segito-photo { max-width: 260px; margin: 0 auto; } }
+  </style>
+</head>
+<body>
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Szociális segítő</h1>
+      <p class="lead">Iskolánk szociális segítője támogatást nyújt a tanulóknak és a családoknak szociális jellegű nehézségeik megoldásában.</p>
+    </div>
+    <div class="page-body">
+
+      <div class="segito-layout">
+        <div>
+          <h2>Miben segíthet?</h2>
+          <ul>
+            <li>Szociális juttatások és támogatások igénylése</li>
+            <li>Kapcsolattartás a gyermekvédelmi intézményekkel</li>
+            <li>Tájékoztatás szociális ellátásokról</li>
+            <li>Krízishelyzetekben való segítségnyújtás</li>
+            <li>Együttműködés az iskolapszichológussal és a pedagógusokkal</li>
+          </ul>
+
+          <div class="info-box" style="margin-top: 24px;">
+            <span class="material-icons info-box-icon">info</span>
+            <div>
+              Az iskolapszichológus és a szociális segítő közösen segítenek a tanulóknak és a szülőknek — a segítségnyújtás ingyenes és önkéntes.
+            </div>
+          </div>
+        </div>
+
+        <figure class="segito-photo">
+          <img src="Dokumentumok/Kurilla_Zsofia.jpg" alt="Kurilla Zsófia, szociális segítő">
+        </figure>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

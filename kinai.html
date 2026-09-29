@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kínai program – Zoltánfy István Iskola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .kinai-layout { display: grid; grid-template-columns: 1fr 220px; gap: 40px; align-items: start; margin-top: 24px; }
+    .kinai-photo { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-200); }
+    .kinai-photo img { display: block; width: 100%; }
+    .kinai-photo figcaption { padding: 10px 14px; font-size: 13px; color: var(--gray-400); text-align: center; }
+    .schedule-card {
+      background: var(--navy-light);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+    .schedule-card h3 { font-size: 14px; font-weight: 600; color: var(--navy-mid); margin-bottom: 8px; }
+    .schedule-card p { font-size: 15px; color: var(--navy-dark); margin: 0; }
+    .chinese { font-size: 13px; color: var(--gray-400); margin-top: 4px; }
+    @media (max-width: 700px) { .kinai-layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="site-topbar"></div>
+  <div id="site-nav"></div>
+
+  <div class="page-content">
+    <div class="page-header">
+      <div class="page-eyebrow">Zoltánfy István Iskola</div>
+      <h1>Kínai program</h1>
+      <p class="lead">Kínai nyelv oktatása a Szegedi Konfuciusz Intézettel együttműködésben — 中文教学 与塞格德的孔子学院 合作</p>
+    </div>
+    <div class="page-body">
+
+      <div class="kinai-layout">
+        <div>
+          <div class="schedule-card">
+            <h3>Órarend / 课程表</h3>
+            <p>Minden szerdán 14:00 – 15:30</p>
+            <p class="chinese">每个星期三 14.00 – 15.30</p>
+          </div>
+
+          <h2>Az oktatóról</h2>
+          <p>Az órákat <strong>Sun Yixuan</strong> (孙艺璇) tartja, a Szegedi Konfuciusz Intézet oktatója.</p>
+
+          <h2>Együttműködés</h2>
+          <p>A program a <a href="http://www.konfuciuszintezet.u-szeged.hu/" target="_blank" rel="noopener">Szegedi Konfuciusz Intézet</a> közreműködésével valósul meg, amely a Szegedi Tudományegyetem keretein belül működik.</p>
+
+          <div class="info-box">
+            <span class="material-icons info-box-icon">info</span>
+            <div>
+              A kínai szakkör ingyenes és minden érdeklődő tanuló számára nyitott.
+            </div>
+          </div>
+        </div>
+
+        <figure class="kinai-photo">
+          <img src="kinai_oktato_2.jpg" alt="Sun Yixuan, kínai nyelv oktató" width="220">
+          <figcaption>Sun Yixuan<br>kínai nyelv oktató</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="assets/nav-data.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>
