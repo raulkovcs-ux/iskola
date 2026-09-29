@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Zoltánfy István Iskola</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+
+    /* ── BEJELENTKEZÉS ───────────────────────────────────────────────── */
+    #login-overlay {
+      position: fixed; inset: 0; background: #0c447c;
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+    }
+    #login-overlay.hidden { display: none; }
+    .login-box {
+      background: #fff; border-radius: 16px; padding: 40px;
+      width: 340px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .login-box h1 { font-size: 20px; color: #0c447c; margin-bottom: 4px; }
+    .login-box p { font-size: 13px; color: #666; margin-bottom: 24px; }
+    .login-box label { display: block; font-size: 12px; font-weight: 600; color: #444; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .login-box input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; margin-bottom: 16px; }
+    .login-box input:focus { outline: none; border-color: #0c447c; box-shadow: 0 0 0 3px rgba(12,68,124,0.12); }
+    .btn-primary { width: 100%; background: #0c447c; color: #fff; border: none; border-radius: 8px; padding: 11px; font-size: 15px; font-weight: 600; cursor: pointer; }
+    .btn-primary:hover { background: #042c53; }
+    .login-error { color: #c0392b; font-size: 13px; margin-top: 8px; display: none; }
+
+    /* ── HEADER ──────────────────────────────────────────────────────── */
+    #admin-panel { display: none; flex-direction: column; min-height: 100vh; }
+    #admin-panel.visible { display: flex; }
+    .admin-header {
+      background: #0c447c; color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .admin-header h1 { font-size: 16px; font-weight: 600; }
+    .admin-header-right { display: flex; align-items: center; gap: 12px; }
+    .mode-toggle { display: flex; background: rgba(255,255,255,0.15); border-radius: 8px; overflow: hidden; }
+    .mode-toggle button { background: none; border: none; color: rgba(255,255,255,0.7); padding: 6px 14px; font-size: 13px; cursor: pointer; }
+    .mode-toggle button.active { background: rgba(255,255,255,0.25); color: #fff; font-weight: 600; }
+    .btn-logout { background: rgba(255, 58, 58, 0.603); border: none; color: #fff; border-radius: 8px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
+    .btn-logout:hover { background: rgba(255, 58, 58, 0.743); }
+    .unsaved-indicator { font-size: 12px; color: #f39c12; display: none; }
+
+    /* ── GITHUB BEÁLLÍTÁSOK ──────────────────────────────────────────── */
+    #gh-settings {
+      background: #042c53; color: #fff; padding: 12px 24px;
+      display: none; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    #gh-settings.visible { display: flex; }
+    #gh-settings label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); display: block; margin-bottom: 4px; }
+    #gh-settings input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 6px; padding: 6px 10px; font-size: 13px; width: 200px; }
+    #gh-settings input::placeholder { color: rgba(255,255,255,0.35); }
+    #gh-settings input:focus { outline: none; border-color: rgba(255,255,255,0.5); }
+    #gh-settings .gh-note { font-size: 11px; color: rgba(255,255,255,0.45); align-self: center; }
+
+    /* ── FÜLSOR ──────────────────────────────────────────────────────── */
+    .tab-bar {
+      background: #fff; border-bottom: 1px solid #e0e0e0;
+      display: flex; padding: 0 24px; gap: 2px; overflow-x: auto;
+      flex-shrink: 0;
+    }
+    .tab-btn {
+      background: none; border: none; padding: 14px 18px; font-size: 13px;
+      font-weight: 500; color: #666; cursor: pointer; border-bottom: 2px solid transparent;
+      white-space: nowrap; transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: #0c447c; }
+    .tab-btn.active { color: #0c447c; border-bottom-color: #0c447c; font-weight: 600; }
+
+    /* ── FŐ TARTALOM ─────────────────────────────────────────────────── */
+    .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .tab-panel { display: none; flex: 1; overflow: hidden; }
+    .tab-panel.active { display: flex; }
+
+    /* ── KÉTOSZLOPOS LAYOUT (Hírek) ──────────────────────────────────── */
+    .split-layout { display: flex; flex: 1; overflow: hidden; }
+    .split-left { width: 280px; flex-shrink: 0; border-right: 1px solid #e0e0e0; background: #fff; display: flex; flex-direction: column; overflow: hidden; }
+    .split-left-header { padding: 16px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
+    .split-left-header span { font-weight: 600; font-size: 13px; }
+    .split-list { flex: 1; overflow-y: auto; }
+    .split-item { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background 0.1s; }
+    .split-item:hover { background: #f5f7fa; }
+    .split-item.active { background: #e8f0fb; border-left: 3px solid #0c447c; padding-left: 13px; }
+    .split-item-title { font-size: 13px; font-weight: 500; color: #1a1a2e; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .split-item-meta { font-size: 11px; color: #888; display: flex; gap: 8px; align-items: center; }
+    .badge-featured { background: #ef9f27; color: #fff; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; }
+    .split-right { flex: 1; overflow-y: auto; padding: 24px; background: #f8f9fb; }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #aaa; gap: 8px; }
+    .empty-state-icon { font-size: 40px; }
+
+    /* ── TELJES SZÉLESSÉGŰ PANEL ─────────────────────────────────────── */
+    .full-panel { flex: 1; overflow-y: auto; padding: 24px; background: #f8f9fb; }
+
+    /* ── FORM ELEMEK ─────────────────────────────────────────────────── */
+    .form-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .form-card h3 { font-size: 15px; font-weight: 600; color: #0c447c; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
+    .form-row { margin-bottom: 16px; }
+    .form-row label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .form-row input[type=text], .form-row input[type=url], .form-row input[type=date], .form-row input[type=number], .form-row select, .form-row textarea {
+      width: 100%; padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-family: inherit;
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: #0c447c; box-shadow: 0 0 0 3px rgba(12,68,124,0.1); }
+    .form-row textarea { min-height: 120px; resize: vertical; }
+    .form-row-inline { display: flex; gap: 12px; }
+    .form-row-inline .form-row { flex: 1; }
+    .checkbox-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+    .checkbox-row input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: #0c447c; }
+    .checkbox-row label { font-size: 14px; font-weight: 500; color: #333; cursor: pointer; margin: 0; text-transform: none; letter-spacing: 0; }
+    .form-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .btn-save { background: #0c447c; color: #fff; border: none; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-save:hover { background: #042c53; }
+    .btn-delete { background: none; border: 1px solid #e74c3c; color: #e74c3c; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-delete:hover { background: #fdf0ef; }
+    .btn-new { background: #0f6e56; color: #fff; border: none; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-new:hover { background: #0a5241; }
+    .btn-sm { padding: 4px 10px; font-size: 12px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; color: #555; }
+    .btn-sm:hover { background: #f5f5f5; }
+    .btn-sm-danger { border-color: #e74c3c; color: #e74c3c; }
+    .btn-sm-danger:hover { background: #fdf0ef; }
+
+    /* ── TÁBLÁZATOS LISTA (Naptár, Dokumentumok) ─────────────────────── */
+    .list-table { width: 100%; border-collapse: collapse; }
+    .list-table th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #888; padding: 8px 10px; background: #f8f8f8; border-bottom: 1px solid #e8e8e8; }
+    .list-table td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    .list-table tr:last-child td { border-bottom: none; }
+    .list-table input[type=text], .list-table input[type=url] { width: 100%; padding: 5px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+    .list-table input:focus { outline: none; border-color: #0c447c; }
+    .order-btns { display: flex; flex-direction: column; gap: 2px; }
+    .order-btns button { background: none; border: 1px solid #ddd; border-radius: 4px; width: 22px; height: 18px; font-size: 10px; cursor: pointer; line-height: 1; color: #666; }
+    .order-btns button:hover { background: #f0f0f0; }
+
+    /* ── STÁTUSZ / PUBLISH SÁV ───────────────────────────────────────── */
+    .status-bar {
+      background: #fff; border-top: 1px solid #e0e0e0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 24px; flex-shrink: 0;
+    }
+    .status-msg { font-size: 13px; }
+    .status-msg.success { color: #0f6e56; font-weight: 600; }
+    .status-msg.error { color: #c0392b; font-weight: 600; }
+    .status-msg.info { color: #888; }
+    .publish-btn {
+      background: #0c447c; color: #fff; border: none; border-radius: 8px;
+      padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .publish-btn:hover { background: #042c53; }
+    .publish-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .export-btn {
+      background: #0f6e56; color: #fff; border: none; border-radius: 8px;
+      padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer;
+    }
+    .export-btn:hover { background: #0a5241; }
+
+    /* ── BEISKOLÁZÁS KÉP ELŐNÉZET ────────────────────────────────────── */
+    .img-preview { max-width: 300px; border-radius: 8px; border: 1px solid #e0e0e0; margin-top: 8px; display: block; }
+
+    /* ── SECTION FEJLÉC (Tantervek, Kompetencia) ─────────────────────── */
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .section-header h4 { font-size: 14px; font-weight: 600; color: #333; }
+    .collapsible-section { margin-bottom: 20px; }
+
+    /* ── IKON VÁLASZTÓ ───────────────────────────────────────────────── */
+    .icon-picker { display: flex; gap: 8px; }
+    .icon-picker label {
+      display: flex; align-items: center; gap: 6px;
+      border: 1px solid #ddd; border-radius: 8px; padding: 6px 10px;
+      cursor: pointer; font-size: 13px; color: #444; white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .icon-picker input[type=radio] { display: none; }
+    .icon-picker input[type=radio]:checked + label {
+      border-color: #0c447c; background: #e8f0fb; color: #0c447c; font-weight: 600;
+    }
+    .icon-picker label:hover { background: #f5f7fa; }
+    .icon-picker .material-icons { font-size: 18px; }
+
+    /* ── BÜSZKESÉGEINK – IKON RÁCS ──────────────────────────────────── */
+    .hl-icon-picker {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .hl-icon-picker input[type=radio] { display: none; }
+    .hl-icon-picker label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 8px 4px;
+      border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer;
+      color: #555; font-size: 10px; text-align: center; line-height: 1.2;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .hl-icon-picker label:hover { background: #f5f7fa; border-color: #bbb; }
+    .hl-icon-picker input[type=radio]:checked + label {
+      border-color: #0c447c; background: #e8f0fb; color: #0c447c; font-weight: 600;
+    }
+    .hl-icon-picker .material-icons { font-size: 24px; }
+
+    /* ── BÜSZKESÉGEINK – SZÍN GOMBOK ────────────────────────────────── */
+    .hl-color-picker { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+    .hl-color-picker input[type=radio] { display: none; }
+    .hl-color-picker label {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 14px; border-radius: 8px;
+      border: 2px solid #e0e0e0; cursor: pointer;
+      font-size: 13px; font-weight: 500; color: #444;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .hl-color-picker label:hover { background: #f5f7fa; border-color: #bbb; }
+    .hl-color-picker input[type=radio]:checked + label {
+      border-color: #0c447c; background: #e8f0fb; color: #0c447c;
+    }
+    .hl-color-swatch {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+
+    /* ── SPOTLIGHT PICKER LENYÍLÓ ───────────────────────────────────── */
+    .hl-picker-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 12px; border: 1px solid #ddd; border-radius: 10px;
+      background: #f8f9fb; cursor: pointer; font-family: inherit;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .hl-picker-toggle:hover { background: #eef0f4; border-color: #bbb; }
+    .hl-picker-preview {
+      width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hl-picker-preview .material-icons { font-size: 22px; }
+    .hl-picker-chevron { font-size: 18px; color: #999; transition: transform 0.2s; }
+    .hl-picker-chevron.open { transform: rotate(180deg); }
+    .hl-picker-dropdown {
+      margin-top: 8px; border: 1px solid #e0e0e0; border-radius: 10px;
+      padding: 14px 16px; background: #fafafa;
+    }
+
+    /* SPINNER */
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 700px) {
+      .split-layout { flex-direction: column; }
+      .split-left { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #e0e0e0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BEJELENTKEZÉS -->
+<div id="login-overlay">
+  <div class="login-box">
+    <h1>Zoltánfy Admin</h1>
+    <p>Kérjük, adja meg a belépési jelszót.</p>
+    <label for="pw-input">Jelszó</label>
+    <input type="password" id="pw-input" placeholder="••••••••" autocomplete="current-password">
+    <button class="btn-primary" onclick="doLogin()">Belépés</button>
+    <div class="login-error" id="login-error">Hibás jelszó. Kérjük, próbálja újra.</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+
+  <!-- HEADER -->
+  <div class="admin-header">
+    <h1>Zoltánfy Admin <span id="unsaved-indicator" class="unsaved-indicator">● Nem mentett változások</span></h1>
+    <div class="admin-header-right">
+      <span id="session-countdown" style="font-size:12px;color:rgba(255,255,255,0.55);"></span>
+      <div class="mode-toggle">
+        <button id="mode-gh-btn" onclick="setMode('github')" class="active">GitHub Pages</button>
+        <button id="mode-ftp-btn" onclick="setMode('ftp')">FTP export</button>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Kijelentkezés</button>
+    </div>
+  </div>
+
+  <!-- GITHUB BEÁLLÍTÁSOK -->
+  <div id="gh-settings" class="visible">
+    <div>
+      <label>GitHub repo (tulajdonos/repo)</label>
+      <input type="text" id="gh-repo" placeholder="pl. iskola/zoltanfy-web">
+    </div>
+    <div>
+      <label>Branch</label>
+      <input type="text" id="gh-branch" placeholder="main" style="width:120px;">
+    </div>
+    <div>
+      <label>Personal Access Token</label>
+      <input type="password" id="gh-token" placeholder="ghp_...">
+    </div>
+    <div class="gh-note">A tokent bizalmasan kezelje. Szükséges jogosultság: <strong>repo</strong> (privát) vagy <strong>public_repo</strong> (nyilvános).</div>
+  </div>
+
+  <!-- FÜLSOR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('news')">Hírek</button>
+    <button class="tab-btn" onclick="switchTab('calendar')">Eseménynaptár</button>
+    <button class="tab-btn" onclick="switchTab('enrollment')">Beiratkozás</button>
+    <button class="tab-btn" onclick="switchTab('curriculum')">Helyi tantervek</button>
+    <button class="tab-btn" onclick="switchTab('competency')">Kompetenciamérés</button>
+    <button class="tab-btn" onclick="switchTab('further-education')">Továbbtanulás</button>
+    <button class="tab-btn" onclick="switchTab('enrollment-program')">Beiskolázás</button>
+    <button class="tab-btn" onclick="switchTab('newspaper')">Suliújság</button>
+    <button class="tab-btn" onclick="switchTab('videos')">Videók</button>
+    <button class="tab-btn" onclick="switchTab('results')">Eredmények</button>
+    <button class="tab-btn" onclick="switchTab('highlights')">Büszkeségeink</button>
+  </div>
+
+  <div class="main-content">
+
+    <!-- ── HÍREK ─────────────────────────────────────────────────────── -->
+    <div id="tab-news" class="tab-panel active">
+      <div class="split-layout">
+        <div class="split-left">
+          <div class="split-left-header">
+            <span>Cikkek</span>
+            <button class="btn-new" onclick="newArticle()">+ Új cikk</button>
+          </div>
+          <div class="split-list" id="news-list"></div>
+        </div>
+        <div class="split-right" id="news-form-area">
+          <div class="empty-state">
+            <div class="empty-state-icon">📰</div>
+            <div>Válasszon ki egy cikket, vagy hozzon létre újat.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ESEMÉNYNAPTÁR ──────────────────────────────────────────────── -->
+    <div id="tab-calendar" class="tab-panel">
+      <div class="full-panel">
+        <div class="form-card">
+          <h3>Hónap felirata</h3>
+          <div class="form-row">
+            <label>Megjelenítendő szöveg (pl. „2026. április")</label>
+            <input type="text" id="cal-month-label">
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="section-header">
+            <h3 style="border:none;padding:0;margin:0;">Események</h3>
+            <button class="btn-new" onclick="addCalendarEvent()">+ Esemény hozzáadása</button>
+          </div>
+          <table class="list-table" id="calendar-table">
+            <thead>
+              <tr>
+                <th style="width:30px;"></th>
+                <th style="width:110px;">Dátum</th>
+                <th>Esemény</th>
+                <th style="width:160px;">Felelős</th>
+                <th style="width:50px;"></th>
+              </tr>
+            </thead>
+            <tbody id="calendar-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BEIRATKOZÁS ────────────────────────────────────────────────── -->
+    <div id="tab-enrollment" class="tab-panel">
+      <div class="full-panel">
+        <div class="form-card">
+          <h3>Beiratkozási adatok</h3>
+          <div class="form-row-inline">
+            <div class="form-row">
+              <label>Tanév</label>
+              <input type="text" id="enr-school-year" placeholder="2026/2027">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Személyes beiratkozás dátuma (szöveg)</label>
+            <input type="text" id="enr-personal-date" placeholder="2026. április 23. (csütörtök) és 24. (péntek)">
+          </div>
+          <div class="form-row-inline">
+            <div class="form-row">
+              <label>Időpont</label>
+              <input type="text" id="enr-hours" placeholder="8:00 – 19:00">
+            </div>
+            <div class="form-row">
+              <label>Helyszín</label>
+              <input type="text" id="enr-venue">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Online elérhetőség dátuma</label>
+            <input type="text" id="enr-online-from" placeholder="2026. március 31.">
+          </div>
+          <div class="form-row">
+            <label>e-KRÉTA link</label>
+            <input type="url" id="enr-online-url">
+          </div>
+          <div class="form-row">
+            <label>Info szöveg (figyelmeztetés)</label>
+            <input type="text" id="enr-online-note">
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="section-header">
+            <h3 style="border:none;padding:0;margin:0;">Kitöltendő nyilatkozatok</h3>
+            <button class="btn-new" onclick="addEnrollmentDoc()">+ Dokumentum hozzáadása</button>
+          </div>
+          <table class="list-table">
+            <thead><tr><th style="width:30px;"></th><th>Megnevezés</th><th style="width:260px;">Dokumentum típusa</th><th>Fájl elérési útja</th><th style="width:50px;"></th></tr></thead>
+            <tbody id="enrollment-docs-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HELYI TANTERVEK ────────────────────────────────────────────── -->
+    <div id="tab-curriculum" class="tab-panel">
+      <div class="full-panel">
+        <div id="curriculum-sections"></div>
+        <button class="btn-new" style="margin-top:8px;" onclick="addCurriculumSection()">+ Szakasz hozzáadása</button>
+      </div>
+    </div>
+
+    <!-- ── KOMPETENCIAMÉRÉS ───────────────────────────────────────────── -->
+    <div id="tab-competency" class="tab-panel">
+      <div class="full-panel">
+        <div id="competency-years"></div>
+        <button class="btn-new" style="margin-top:8px;" onclick="addCompetencyYear()">+ Év hozzáadása</button>
+      </div>
+    </div>
+
+    <!-- ── TOVÁBBTANULÁS ──────────────────────────────────────────────── -->
+    <div id="tab-further-education" class="tab-panel">
+      <div class="full-panel">
+        <div class="form-card">
+          <div class="section-header">
+            <h3 style="border:none;padding:0;margin:0;">Továbbtanulási adatok</h3>
+            <button class="btn-new" onclick="addFurtherEntry()">+ Bejegyzés hozzáadása</button>
+          </div>
+          <table class="list-table">
+            <thead><tr><th style="width:30px;"></th><th>Megnevezés</th><th>Fájl elérési útja</th><th style="width:50px;"></th></tr></thead>
+            <tbody id="further-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BEISKOLÁZÁS ────────────────────────────────────────────────── -->
+    <div id="tab-enrollment-program" class="tab-panel">
+      <div class="full-panel">
+        <div class="form-card">
+          <h3>Beiskolázási program</h3>
+          <div class="form-row">
+            <label>Kép elérési útja</label>
+            <input type="text" id="ep-img-src" placeholder="beiskolazas/beiskolazas_2026-2027.jpg" oninput="updateImgPreview()">
+            <img id="ep-img-preview" class="img-preview" src="" alt="" style="display:none;">
+          </div>
+          <div class="form-row">
+            <label>Kép alt szövege</label>
+            <input type="text" id="ep-img-alt" placeholder="Beiskolázási program 2026–2027">
+          </div>
+          <div class="form-row">
+            <label>Info szöveg (link előtt)</label>
+            <input type="text" id="ep-info-text">
+          </div>
+          <div class="form-row-inline">
+            <div class="form-row">
+              <label>Link szövege</label>
+              <input type="text" id="ep-link-label">
+            </div>
+            <div class="form-row">
+              <label>Link URL</label>
+              <input type="text" id="ep-link-href">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SULIÚJSÁG ──────────────────────────────────────────────────── -->
+    <div id="tab-newspaper" class="tab-panel">
+      <div class="full-panel">
+        <div id="newspaper-grades"></div>
+        <button class="btn-new" style="margin-top:8px;" onclick="addNewspaperGrade()">+ Évfolyam hozzáadása</button>
+      </div>
+    </div>
+
+    <!-- ── VIDEÓK ────────────────────────────────────────────────────── -->
+    <div id="tab-videos" class="tab-panel">
+      <div class="full-panel">
+        <div id="videos-years"></div>
+        <button class="btn-new" style="margin-top:8px;" onclick="addVideoYear()">+ Tanév hozzáadása</button>
+      </div>
+    </div>
+
+    <!-- ── EREDMÉNYEK ─────────────────────────────────────────────────── -->
+    <div id="tab-results" class="tab-panel">
+      <div class="full-panel">
+        <div id="results-years"></div>
+        <button class="btn-new" style="margin-top:8px;" onclick="addResultYear()">+ Tanév hozzáadása</button>
+      </div>
+    </div>
+
+    <!-- ── BÜSZKESÉGEINK ──────────────────────────────────────────────── -->
+    <div id="tab-highlights" class="tab-panel">
+      <div class="full-panel">
+
+        <div class="form-card">
+          <div class="section-header">
+            <h3 style="border:none;padding:0;margin:0;">Kiemelkedő területek (spotlight kártyák)</h3>
+            <button class="btn-new" onclick="addSpotlight()">+ Kártya hozzáadása</button>
+          </div>
+          <div id="highlights-spotlights-admin" style="margin-top:16px;"></div>
+        </div>
+
+        <div class="form-card">
+          <div class="section-header">
+            <h3 style="border:none;padding:0;margin:0;">Kiemelkedő tanulók</h3>
+            <button class="btn-new" onclick="addStudent()">+ Tanuló hozzáadása</button>
+          </div>
+          <div id="highlights-students-admin" style="margin-top:16px;"></div>
+        </div>
+
+        <div class="form-card">
+          <h3>Info box (angol próbanyelvvizsga stb.)</h3>
+          <div class="form-row">
+            <label>Cím</label>
+            <input type="text" id="hl-infobox-title">
+          </div>
+          <div class="form-row">
+            <label>Szöveg</label>
+            <textarea id="hl-infobox-text" rows="3"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+
+  <!-- STÁTUSZ SÁV -->
+  <div class="status-bar">
+    <div class="status-msg info" id="status-msg">Kész.</div>
+    <div style="display:flex;gap:10px;">
+      <button class="publish-btn" id="publish-btn" onclick="publishGitHub()">
+        Közzétesz
+      </button>
+      <button class="export-btn" id="export-btn" onclick="exportZip()" style="display:none;">
+        Exportálás (ZIP)
+      </button>
+    </div>
+  </div>
+
+<!-- FTP FELTÖLTÉSI ÚTMUTATÓ MODAL -->
+<div id="ftp-modal" style="display:none;position:fixed;inset:0;background:rgba(4,44,83,0.55);z-index:9998;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;max-width:560px;width:calc(100% - 40px);box-shadow:0 24px 64px rgba(0,0,0,0.25);overflow:hidden;">
+    <div style="background:#0c447c;color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="material-icons" style="font-size:22px;">upload</span>
+        <strong style="font-size:15px;">ZIP letöltve – következő lépés</strong>
+      </div>
+      <button onclick="closeFtpModal()" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:22px;line-height:1;">✕</button>
+    </div>
+    <div style="padding:24px;font-size:14px;line-height:1.7;color:#333;">
+      <p style="margin-bottom:16px;">A letöltött ZIP fájlban a <code style="background:#f0f2f5;padding:1px 5px;border-radius:4px;">data/</code> mappa található. Ezt kell feltölteni a szerver <code style="background:#f0f2f5;padding:1px 5px;border-radius:4px;">/data/</code> mappájába FTP-n.</p>
+
+      <div style="background:#f8f9fb;border:1px solid #e0e0e0;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
+        <strong style="display:block;margin-bottom:10px;color:#0c447c;">Total Commander</strong>
+        <ol style="padding-left:18px;display:flex;flex-direction:column;gap:6px;">
+          <li>Nyissa meg a Total Commandert, és kapcsolódjon a tárhelyszolgáltatóhoz az <strong>FTP csatlakozás</strong> (Hálózat → FTP csatlakozás) menüponton keresztül.</li>
+          <li>A jobb oldali panelben navigáljon a weboldal gyökérmappájába, majd nyissa meg a <strong>data</strong> almappát.</li>
+          <li>A bal panelben keresse meg a letöltött ZIP-et, csomagolja ki (Fájl → Kibontás), majd lépjen be a kicsomagolt <strong>data</strong> mappába.</li>
+          <li>Jelölje ki az összes fájlt (Ctrl+A), majd nyomja meg az <strong>F5</strong> gombot a másoláshoz.</li>
+          <li>A felülírás kérdésnél válassza az <strong>"Igen az összes"</strong> lehetőséget.</li>
+        </ol>
+      </div>
+
+      <div style="background:#f8f9fb;border:1px solid #e0e0e0;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
+        <strong style="display:block;margin-bottom:10px;color:#0c447c;">FileZilla (ingyenes FTP kliens)</strong>
+        <ol style="padding-left:18px;display:flex;flex-direction:column;gap:6px;">
+          <li>Nyissa meg a FileZillát, és csatlakozzon a tárhelyhez (Fájl → Gyors csatlakozás vagy Webhelykezelő).</li>
+          <li>A jobb oldali (szerver) panelben navigáljon a weboldal <strong>/data/</strong> mappájába.</li>
+          <li>Csomagolja ki a ZIP-et, és a bal (helyi) panelben nyissa meg a kicsomagolt <strong>data</strong> mappát.</li>
+          <li>Jelölje ki az összes JSON fájlt, kattintson jobb gombbal → <strong>Feltöltés</strong>.</li>
+          <li>Ha kérdezi a felülírást, válassza az <strong>"Igen az összes"</strong> lehetőséget.</li>
+        </ol>
+      </div>
+
+      <p style="font-size:12px;color:#888;margin-top:4px;">A feltöltés után a weboldal azonnal frissül – nincs szükség újraindításra.</p>
+    </div>
+    <div style="padding:16px 24px;border-top:1px solid #e8e8e8;display:flex;justify-content:flex-end;">
+      <button onclick="closeFtpModal()" style="background:#0c447c;color:#fff;border:none;border-radius:8px;padding:9px 24px;font-size:14px;font-weight:600;cursor:pointer;">Rendben</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /admin-panel -->
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   KONFIGURÁCIÓ
+   ════════════════════════════════════════════════════════════════════════ */
+
+
+const PASSWORD_HASH = '2d0e3f5961d9d30d766ac5d46b0ab634d44209923250159624985434cfc63c29';
+// ^ Ez a jelszó SHA-256 hashje.
+
+
+const DATA_FILES = ['news.json','calendar.json','enrollment.json','curriculum.json','competency.json','further-education.json','enrollment-program.json','newspaper.json','videos.json','results.json','highlights.json'];
+
+let state = { news: null, calendar: null, enrollment: null, curriculum: null, competency: null, 'further-education': null, 'enrollment-program': null, newspaper: null, videos: null, results: null, highlights: null };
+let currentArticleId = null;
+let hasChanges = false;
+let publishMode = 'github';
+
+/* ════════════════════════════════════════════════════════════════════════
+   AUTH
+   ════════════════════════════════════════════════════════════════════════ */
+async function sha256hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2,'0')).join('');
+}
+
+async function doLogin() {
+  const pw = document.getElementById('pw-input').value;
+  const hash = await sha256hex(pw);
+  if (hash === PASSWORD_HASH) {
+    sessionStorage.setItem('admin_auth','1');
+    sessionStorage.setItem('admin_auth_ts', Date.now());
+    showPanel();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+  }
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+function doLogout(force) {
+  if (!force && hasChanges && !confirm('Nem mentett változások vannak. Biztosan kijelentkezik?')) return;
+  sessionStorage.removeItem('admin_auth');
+  sessionStorage.removeItem('admin_auth_ts');
+  clearInterval(sessionTimer);
+  location.reload();
+}
+
+/* ── SESSION LEJÁRAT (10 perc inaktivitás) ───────────────────────────── */
+const SESSION_TIMEOUT_MS = 10 * 60 * 1000; // 10 perc
+let sessionTimer = null;
+
+function resetSessionTimer() {
+  sessionStorage.setItem('admin_auth_ts', Date.now());
+}
+
+function startSessionWatchdog() {
+  updateSessionCountdown();
+  sessionTimer = setInterval(() => {
+    const ts = parseInt(sessionStorage.getItem('admin_auth_ts') || '0');
+    const remaining = SESSION_TIMEOUT_MS - (Date.now() - ts);
+    if (remaining <= 0) {
+      clearInterval(sessionTimer);
+      alert('A munkamenet lejárt. Kérjük, jelentkezzen be újra.');
+      doLogout(true);
+    } else {
+      updateSessionCountdown(remaining);
+    }
+  }, 1000);
+
+  // Aktivitás esetén visszaállítjuk az időzítőt
+  ['mousemove','keydown','mousedown','touchstart','click'].forEach(ev =>
+    document.addEventListener(ev, resetSessionTimer, { passive: true })
+  );
+}
+
+function updateSessionCountdown(remaining) {
+  const el = document.getElementById('session-countdown');
+  if (!el) return;
+  if (remaining == null) {
+    const ts = parseInt(sessionStorage.getItem('admin_auth_ts') || '0');
+    remaining = SESSION_TIMEOUT_MS - (Date.now() - ts);
+  }
+  if (remaining <= 0) { el.textContent = ''; return; }
+  const m = Math.floor(remaining / 60000);
+  const s = Math.floor((remaining % 60000) / 1000);
+  el.textContent = `Munkamenet: ${m}:${s.toString().padStart(2,'0')}`;
+  el.style.color = remaining < 60000 ? '#f39c12' : 'rgba(255,255,255,0.55)';
+}
+
+function showPanel() {
+  document.getElementById('login-overlay').classList.add('hidden');
+  document.getElementById('admin-panel').classList.add('visible');
+  loadGhSettings();
+  loadAllData();
+  startSessionWatchdog();
+}
+
+if (sessionStorage.getItem('admin_auth') === '1') {
+  const ts = parseInt(sessionStorage.getItem('admin_auth_ts') || '0');
+  if (Date.now() - ts < SESSION_TIMEOUT_MS) {
+    showPanel();
+  } else {
+    sessionStorage.removeItem('admin_auth');
+    sessionStorage.removeItem('admin_auth_ts');
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   MÓD KEZELÉS
+   ════════════════════════════════════════════════════════════════════════ */
+function setMode(mode) {
+  publishMode = mode;
+  localStorage.setItem('admin_publish_mode', mode);
+  document.getElementById('mode-gh-btn').classList.toggle('active', mode === 'github');
+  document.getElementById('mode-ftp-btn').classList.toggle('active', mode === 'ftp');
+  document.getElementById('gh-settings').classList.toggle('visible', mode === 'github');
+  document.getElementById('publish-btn').style.display = mode === 'github' ? '' : 'none';
+  document.getElementById('export-btn').style.display = mode === 'ftp' ? '' : 'none';
+}
+
+setMode(localStorage.getItem('admin_publish_mode') || 'github');
+
+/* ════════════════════════════════════════════════════════════════════════
+   GITHUB BEÁLLÍTÁSOK
+   ════════════════════════════════════════════════════════════════════════ */
+function loadGhSettings() {
+  document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
+  document.getElementById('gh-branch').value = localStorage.getItem('gh_branch') || 'main';
+  document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+}
+['gh-repo','gh-branch','gh-token'].forEach(id => {
+  document.getElementById(id).addEventListener('change', e => {
+    localStorage.setItem(id.replace('-','_'), e.target.value);
+  });
+});
+
+/* ════════════════════════════════════════════════════════════════════════
+   ADATOK BETÖLTÉSE
+   ════════════════════════════════════════════════════════════════════════ */
+function dataPath(file) {
+  return '../data/' + file;
+}
+
+async function loadAllData() {
+  setStatus('Adatok betöltése...', 'info');
+  const results = await Promise.allSettled(DATA_FILES.map(async f => {
+    const r = await fetch(dataPath(f));
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    const key = f.replace('.json','');
+    state[key] = data;
+  }));
+  const errors = results.filter(r => r.status === 'rejected');
+  if (errors.length > 0) {
+    setStatus('Néhány adatfájl nem töltődött be – ellenőrizze a /data/ mappát.', 'error');
+  } else {
+    setStatus('Adatok betöltve.', 'success');
+  }
+  renderAll();
+}
+
+function renderAll() {
+  renderNewsList();
+  renderCalendarTab();
+  renderEnrollmentTab();
+  renderCurriculumTab();
+  renderCompetencyTab();
+  renderFurtherTab();
+  renderEnrollmentProgramTab();
+  renderNewspaperTab();
+  renderVideosTab();
+  renderResultsTab();
+  renderHighlightsTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   FÜL VÁLTÁS
+   ════════════════════════════════════════════════════════════════════════ */
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   VÁLTOZÁS JELZÉSE
+   ════════════════════════════════════════════════════════════════════════ */
+function markChanged() {
+  hasChanges = true;
+  document.getElementById('unsaved-indicator').style.display = 'inline';
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   HÍREK
+   ════════════════════════════════════════════════════════════════════════ */
+const HU_MONTHS = ['','Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
+
+function renderNewsList() {
+  const list = document.getElementById('news-list');
+  if (!state.news) { list.innerHTML = '<p style="padding:16px;color:#aaa;">Adatok betöltése...</p>'; return; }
+  const articles = state.news.articles;
+  if (!articles || articles.length === 0) { list.innerHTML = '<p style="padding:16px;color:#aaa;">Nincs cikk.</p>'; return; }
+
+  const sorted = [...articles].sort((a,b) => b.createdAt.localeCompare(a.createdAt));
+  list.innerHTML = sorted.map(a => `
+    <div class="split-item ${a.id === currentArticleId ? 'active' : ''}" onclick="selectArticle('${a.id}')">
+      <div class="split-item-title">${escHtml(a.title)}</div>
+      <div class="split-item-meta">
+        <span>${a.year}. ${HU_MONTHS[a.month]}</span>
+        ${a.featured ? '<span class="badge-featured">Kiemelt</span>' : ''}
+      </div>
+    </div>`).join('');
+}
+
+function selectArticle(id) {
+  currentArticleId = id;
+  renderNewsList();
+  const a = state.news.articles.find(x => x.id === id);
+  renderArticleForm(a);
+}
+
+function renderArticleForm(a) {
+  const area = document.getElementById('news-form-area');
+  area.innerHTML = `
+    <div class="form-card">
+      <h3>${a ? 'Cikk szerkesztése' : 'Új cikk'}</h3>
+      <div class="form-row-inline">
+        <div class="form-row">
+          <label>Év</label>
+          <input type="number" id="art-year" value="${a ? a.year : new Date().getFullYear()}">
+        </div>
+        <div class="form-row">
+          <label>Hónap</label>
+          <select id="art-month">
+            ${HU_MONTHS.slice(1).map((m,i) => `<option value="${i+1}" ${a && a.month === i+1 ? 'selected' : ''}>${m}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Dátum</label>
+          <input type="date" id="art-date" value="${a ? a.createdAt : new Date().toISOString().slice(0,10)}">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Cím</label>
+        <input type="text" id="art-title" value="${a ? escHtml(a.title) : ''}">
+      </div>
+      <div class="form-row">
+        <label>Tartalom (bekezdések elválasztása: üres sor)</label>
+        <textarea id="art-body">${a ? escHtml(a.body) : ''}</textarea>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="art-featured" ${a && a.featured ? 'checked' : ''}>
+        <label for="art-featured">Megjelenjen a főoldalon (kiemelt hír)</label>
+      </div>
+      <div class="form-actions">
+        <button class="btn-save" onclick="saveArticle()">Mentés</button>
+        ${a ? `<button class="btn-delete" onclick="deleteArticle('${a.id}')">Törlés</button>` : ''}
+      </div>
+    </div>`;
+}
+
+function newArticle() {
+  currentArticleId = null;
+  renderNewsList();
+  renderArticleForm(null);
+}
+
+function saveArticle() {
+  const year = parseInt(document.getElementById('art-year').value);
+  const month = parseInt(document.getElementById('art-month').value);
+  const title = document.getElementById('art-title').value.trim();
+  const body = document.getElementById('art-body').value.trim();
+  const createdAt = document.getElementById('art-date').value;
+  const featured = document.getElementById('art-featured').checked;
+
+  if (!title || !body) { alert('Cím és tartalom megadása kötelező.'); return; }
+
+  if (!state.news) state.news = { articles: [] };
+
+  if (currentArticleId) {
+    const idx = state.news.articles.findIndex(a => a.id === currentArticleId);
+    if (idx >= 0) state.news.articles[idx] = { ...state.news.articles[idx], year, month, title, body, createdAt, featured };
+  } else {
+    const newId = 'news-' + Date.now();
+    state.news.articles.push({ id: newId, year, month, title, body, createdAt, featured });
+    currentArticleId = newId;
+  }
+  markChanged();
+  renderNewsList();
+  setStatus('Cikk mentve (közzétéshez kattintson a Közzétesz gombra).', 'success');
+}
+
+function deleteArticle(id) {
+  if (!confirm('Biztosan törli ezt a cikket?')) return;
+  state.news.articles = state.news.articles.filter(a => a.id !== id);
+  currentArticleId = null;
+  markChanged();
+  renderNewsList();
+  document.getElementById('news-form-area').innerHTML = '<div class="empty-state"><div class="empty-state-icon">📰</div><div>Válasszon ki egy cikket.</div></div>';
+  setStatus('Cikk törölve.', 'success');
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   ESEMÉNYNAPTÁR
+   ════════════════════════════════════════════════════════════════════════ */
+function renderCalendarTab() {
+  if (!state.calendar) return;
+  document.getElementById('cal-month-label').value = state.calendar.monthLabel || '';
+  renderCalendarRows();
+}
+
+document.getElementById('cal-month-label').addEventListener('input', () => {
+  if (state.calendar) state.calendar.monthLabel = document.getElementById('cal-month-label').value;
+  markChanged();
+});
+
+function renderCalendarRows() {
+  const tbody = document.getElementById('calendar-tbody');
+  const events = state.calendar ? state.calendar.events : [];
+  tbody.innerHTML = events.map((ev, i) => `
+    <tr data-idx="${i}">
+      <td>
+        <div class="order-btns">
+          <button onclick="moveCalEvent(${i},-1)" title="Fel">▲</button>
+          <button onclick="moveCalEvent(${i},1)" title="Le">▼</button>
+        </div>
+      </td>
+      <td><input type="text" value="${escHtml(ev.date)}" onchange="updateCalEvent(${i},'date',this.value)"></td>
+      <td><input type="text" value="${escHtml(ev.title)}" onchange="updateCalEvent(${i},'title',this.value)"></td>
+      <td><input type="text" value="${escHtml(ev.responsible)}" onchange="updateCalEvent(${i},'responsible',this.value)"></td>
+      <td><button class="btn-sm btn-sm-danger" onclick="deleteCalEvent(${i})">✕</button></td>
+    </tr>`).join('');
+}
+
+function updateCalEvent(i, field, value) {
+  state.calendar.events[i][field] = value;
+  markChanged();
+}
+
+function addCalendarEvent() {
+  if (!state.calendar) state.calendar = { monthLabel: '', events: [] };
+  state.calendar.events.push({ id: 'evt-' + Date.now(), date: '', title: '', responsible: '' });
+  markChanged();
+  renderCalendarRows();
+}
+
+function deleteCalEvent(i) {
+  state.calendar.events.splice(i, 1);
+  markChanged();
+  renderCalendarRows();
+}
+
+function moveCalEvent(i, dir) {
+  const arr = state.calendar.events;
+  const j = i + dir;
+  if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+  markChanged();
+  renderCalendarRows();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BEIRATKOZÁS
+   ════════════════════════════════════════════════════════════════════════ */
+function renderEnrollmentTab() {
+  const e = state.enrollment;
+  if (!e) return;
+  document.getElementById('enr-school-year').value = e.schoolYear || '';
+  document.getElementById('enr-personal-date').value = e.personalDates?.display || '';
+  document.getElementById('enr-hours').value = e.personalDates?.hours || '';
+  document.getElementById('enr-venue').value = e.personalDates?.venue || '';
+  document.getElementById('enr-online-from').value = e.onlineAvailableFrom || '';
+  document.getElementById('enr-online-url').value = e.onlineUrl || '';
+  document.getElementById('enr-online-note').value = e.onlineNote || '';
+  renderEnrollmentDocs();
+}
+
+['enr-school-year','enr-personal-date','enr-hours','enr-venue','enr-online-from','enr-online-url','enr-online-note'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    if (!state.enrollment) state.enrollment = { personalDates: {} };
+    if (!state.enrollment.personalDates) state.enrollment.personalDates = {};
+    const v = document.getElementById(id).value;
+    if (id === 'enr-school-year') state.enrollment.schoolYear = v;
+    else if (id === 'enr-personal-date') state.enrollment.personalDates.display = v;
+    else if (id === 'enr-hours') state.enrollment.personalDates.hours = v;
+    else if (id === 'enr-venue') state.enrollment.personalDates.venue = v;
+    else if (id === 'enr-online-from') state.enrollment.onlineAvailableFrom = v;
+    else if (id === 'enr-online-url') state.enrollment.onlineUrl = v;
+    else if (id === 'enr-online-note') state.enrollment.onlineNote = v;
+    markChanged();
+  });
+});
+
+function renderEnrollmentDocs() {
+  const docs = state.enrollment?.documents || [];
+  const DOC_ICONS = [
+    { value: 'description',   label: 'Informatív' },
+    { value: 'edit_document', label: 'Kitöltendő' },
+  ];
+  document.getElementById('enrollment-docs-tbody').innerHTML = docs.map((d, i) => `
+    <tr>
+      <td><div class="order-btns"><button onclick="moveEnrDoc(${i},-1)">▲</button><button onclick="moveEnrDoc(${i},1)">▼</button></div></td>
+      <td><input type="text" value="${escHtml(d.label)}" onchange="updateEnrDoc(${i},'label',this.value)"></td>
+      <td>
+        <div class="icon-picker">
+          ${DOC_ICONS.map(opt => `
+            <span>
+              <input type="radio" name="enr-icon-${i}" id="enr-icon-${i}-${opt.value}"
+                value="${opt.value}" ${d.icon === opt.value ? 'checked' : ''}
+                onchange="updateEnrDoc(${i},'icon',this.value)">
+              <label for="enr-icon-${i}-${opt.value}">
+                <span class="material-icons">${opt.value}</span>${opt.label}
+              </label>
+            </span>`).join('')}
+        </div>
+      </td>
+      <td><input type="text" value="${escHtml(d.href)}" onchange="updateEnrDoc(${i},'href',this.value)"></td>
+      <td><button class="btn-sm btn-sm-danger" onclick="deleteEnrDoc(${i})">✕</button></td>
+    </tr>`).join('');
+}
+
+function updateEnrDoc(i, field, value) { state.enrollment.documents[i][field] = value; markChanged(); }
+function addEnrollmentDoc() {
+  if (!state.enrollment) state.enrollment = { documents: [] };
+  if (!state.enrollment.documents) state.enrollment.documents = [];
+  state.enrollment.documents.push({ id: 'doc-' + Date.now(), label: '', icon: 'edit_document', href: '' });
+  markChanged(); renderEnrollmentDocs();
+}
+function deleteEnrDoc(i) { state.enrollment.documents.splice(i,1); markChanged(); renderEnrollmentDocs(); }
+function moveEnrDoc(i, dir) {
+  const arr = state.enrollment.documents;
+  const j = i + dir; if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]]; markChanged(); renderEnrollmentDocs();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   HELYI TANTERVEK
+   ════════════════════════════════════════════════════════════════════════ */
+function renderCurriculumTab() {
+  const container = document.getElementById('curriculum-sections');
+  const sections = state.curriculum?.sections || [];
+  container.innerHTML = sections.map((sec, si) => `
+    <div class="form-card">
+      <div class="section-header">
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Szakasz neve</label>
+          <input type="text" value="${escHtml(sec.title)}" onchange="updateCurrSection(${si},'title',this.value)" style="width:100%;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+        </div>
+        <div style="display:flex;gap:6px;margin-left:12px;align-self:flex-end;">
+          <button class="btn-new" onclick="addCurrDoc(${si})">+ Dokumentum</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteCurrSection(${si})">Töröl</button>
+        </div>
+      </div>
+      <table class="list-table" style="margin-top:12px;">
+        <thead><tr><th style="width:30px;"></th><th>Megnevezés</th><th>Fájl</th><th style="width:50px;"></th></tr></thead>
+        <tbody>${sec.documents.map((d, di) => `
+          <tr>
+            <td><div class="order-btns"><button onclick="moveCurrDoc(${si},${di},-1)">▲</button><button onclick="moveCurrDoc(${si},${di},1)">▼</button></div></td>
+            <td><input type="text" value="${escHtml(d.label)}" onchange="updateCurrDoc(${si},${di},'label',this.value)"></td>
+            <td><input type="text" value="${escHtml(d.href)}" onchange="updateCurrDoc(${si},${di},'href',this.value)"></td>
+            <td><button class="btn-sm btn-sm-danger" onclick="deleteCurrDoc(${si},${di})">✕</button></td>
+          </tr>`).join('')}</tbody>
+      </table>
+    </div>`).join('');
+}
+
+function updateCurrSection(si, field, value) { state.curriculum.sections[si][field] = value; markChanged(); }
+function addCurriculumSection() {
+  if (!state.curriculum) state.curriculum = { sections: [] };
+  state.curriculum.sections.push({ id: 'sec-' + Date.now(), title: 'Új szakasz', documents: [] });
+  markChanged(); renderCurriculumTab();
+}
+function deleteCurrSection(si) { if (!confirm('Törli a szakaszt?')) return; state.curriculum.sections.splice(si,1); markChanged(); renderCurriculumTab(); }
+function addCurrDoc(si) {
+  state.curriculum.sections[si].documents.push({ id: 'doc-' + Date.now(), label: '', icon: 'menu_book', href: '' });
+  markChanged(); renderCurriculumTab();
+}
+function deleteCurrDoc(si, di) { state.curriculum.sections[si].documents.splice(di,1); markChanged(); renderCurriculumTab(); }
+function updateCurrDoc(si, di, field, value) { state.curriculum.sections[si].documents[di][field] = value; markChanged(); }
+function moveCurrDoc(si, di, dir) {
+  const arr = state.curriculum.sections[si].documents;
+  const j = di + dir; if (j < 0 || j >= arr.length) return;
+  [arr[di], arr[j]] = [arr[j], arr[di]]; markChanged(); renderCurriculumTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   KOMPETENCIAMÉRÉS
+   ════════════════════════════════════════════════════════════════════════ */
+function renderCompetencyTab() {
+  const container = document.getElementById('competency-years');
+  const years = state.competency?.years || [];
+  container.innerHTML = years.map((y, yi) => `
+    <div class="form-card">
+      <div class="section-header">
+        <div>
+          <label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Év</label>
+          <input type="number" value="${y.year}" onchange="updateCompYear(${yi},this.value)" style="width:100px;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+        </div>
+        <div style="display:flex;gap:6px;margin-left:12px;align-self:flex-end;">
+          <button class="btn-new" onclick="addCompDoc(${yi})">+ Dokumentum</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteCompYear(${yi})">Töröl</button>
+        </div>
+      </div>
+      <table class="list-table" style="margin-top:12px;">
+        <thead><tr><th style="width:30px;"></th><th>Megnevezés</th><th>Fájl</th><th style="width:50px;"></th></tr></thead>
+        <tbody>${y.documents.map((d, di) => `
+          <tr>
+            <td><div class="order-btns"><button onclick="moveCompDoc(${yi},${di},-1)">▲</button><button onclick="moveCompDoc(${yi},${di},1)">▼</button></div></td>
+            <td><input type="text" value="${escHtml(d.label)}" onchange="updateCompDoc(${yi},${di},'label',this.value)"></td>
+            <td><input type="text" value="${escHtml(d.href)}" onchange="updateCompDoc(${yi},${di},'href',this.value)"></td>
+            <td><button class="btn-sm btn-sm-danger" onclick="deleteCompDoc(${yi},${di})">✕</button></td>
+          </tr>`).join('')}</tbody>
+      </table>
+    </div>`).join('');
+}
+
+function updateCompYear(yi, value) { state.competency.years[yi].year = parseInt(value); markChanged(); }
+function addCompetencyYear() {
+  if (!state.competency) state.competency = { years: [] };
+  state.competency.years.unshift({ year: new Date().getFullYear(), documents: [] });
+  markChanged(); renderCompetencyTab();
+}
+function deleteCompYear(yi) { if (!confirm('Törli az évet?')) return; state.competency.years.splice(yi,1); markChanged(); renderCompetencyTab(); }
+function addCompDoc(yi) {
+  state.competency.years[yi].documents.push({ id: 'doc-' + Date.now(), label: '', icon: 'analytics', href: '' });
+  markChanged(); renderCompetencyTab();
+}
+function deleteCompDoc(yi, di) { state.competency.years[yi].documents.splice(di,1); markChanged(); renderCompetencyTab(); }
+function updateCompDoc(yi, di, field, value) { state.competency.years[yi].documents[di][field] = value; markChanged(); }
+function moveCompDoc(yi, di, dir) {
+  const arr = state.competency.years[yi].documents;
+  const j = di + dir; if (j < 0 || j >= arr.length) return;
+  [arr[di], arr[j]] = [arr[j], arr[di]]; markChanged(); renderCompetencyTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   TOVÁBBTANULÁS
+   ════════════════════════════════════════════════════════════════════════ */
+function renderFurtherTab() {
+  const entries = state['further-education']?.entries || [];
+  document.getElementById('further-tbody').innerHTML = entries.map((e, i) => `
+    <tr>
+      <td><div class="order-btns"><button onclick="moveFurther(${i},-1)">▲</button><button onclick="moveFurther(${i},1)">▼</button></div></td>
+      <td><input type="text" value="${escHtml(e.label)}" onchange="updateFurther(${i},'label',this.value)"></td>
+      <td><input type="text" value="${escHtml(e.href)}" onchange="updateFurther(${i},'href',this.value)"></td>
+      <td><button class="btn-sm btn-sm-danger" onclick="deleteFurther(${i})">✕</button></td>
+    </tr>`).join('');
+}
+
+function updateFurther(i, field, value) { state['further-education'].entries[i][field] = value; markChanged(); }
+function addFurtherEntry() {
+  if (!state['further-education']) state['further-education'] = { entries: [] };
+  state['further-education'].entries.unshift({ id: 'fe-' + Date.now(), label: '', icon: 'description', href: '' });
+  markChanged(); renderFurtherTab();
+}
+function deleteFurther(i) { state['further-education'].entries.splice(i,1); markChanged(); renderFurtherTab(); }
+function moveFurther(i, dir) {
+  const arr = state['further-education'].entries;
+  const j = i + dir; if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]]; markChanged(); renderFurtherTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BEISKOLÁZÁS
+   ════════════════════════════════════════════════════════════════════════ */
+function renderEnrollmentProgramTab() {
+  const ep = state['enrollment-program'];
+  if (!ep) return;
+  document.getElementById('ep-img-src').value = ep.imageSrc || '';
+  document.getElementById('ep-img-alt').value = ep.imageAlt || '';
+  document.getElementById('ep-info-text').value = ep.infoText || '';
+  document.getElementById('ep-link-label').value = ep.infoLinkLabel || '';
+  document.getElementById('ep-link-href').value = ep.infoLinkHref || '';
+  updateImgPreview();
+}
+
+function updateImgPreview() {
+  const src = document.getElementById('ep-img-src').value;
+  const img = document.getElementById('ep-img-preview');
+  if (src) { img.src = '../' + src; img.style.display = 'block'; } else { img.style.display = 'none'; }
+}
+
+['ep-img-src','ep-img-alt','ep-info-text','ep-link-label','ep-link-href'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    if (!state['enrollment-program']) state['enrollment-program'] = {};
+    const v = document.getElementById(id).value;
+    if (id === 'ep-img-src') state['enrollment-program'].imageSrc = v;
+    else if (id === 'ep-img-alt') state['enrollment-program'].imageAlt = v;
+    else if (id === 'ep-info-text') state['enrollment-program'].infoText = v;
+    else if (id === 'ep-link-label') state['enrollment-program'].infoLinkLabel = v;
+    else if (id === 'ep-link-href') state['enrollment-program'].infoLinkHref = v;
+    markChanged();
+  });
+});
+
+/* ════════════════════════════════════════════════════════════════════════
+   SULIÚJSÁG
+   ════════════════════════════════════════════════════════════════════════ */
+function renderNewspaperTab() {
+  const container = document.getElementById('newspaper-grades');
+  const grades = state.newspaper?.grades || [];
+  container.innerHTML = grades.map((g, gi) => `
+    <div class="form-card">
+      <div class="section-header">
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Évfolyam neve</label>
+          <input type="text" value="${escHtml(g.label)}" onchange="updateNpGrade(${gi},'label',this.value)" style="width:100%;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+        </div>
+        <div style="display:flex;gap:6px;margin-left:12px;align-self:flex-end;">
+          <button class="btn-new" onclick="addNpIssue(${gi})">+ Szám</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteNpGrade(${gi})">Töröl</button>
+        </div>
+      </div>
+      <table class="list-table" style="margin-top:12px;">
+        <thead><tr><th style="width:30px;"></th><th>Megnevezés</th><th>Fájl</th><th style="width:50px;"></th></tr></thead>
+        <tbody>${g.issues.map((iss, ii) => `
+          <tr>
+            <td><div class="order-btns"><button onclick="moveNpIssue(${gi},${ii},-1)">▲</button><button onclick="moveNpIssue(${gi},${ii},1)">▼</button></div></td>
+            <td><input type="text" value="${escHtml(iss.label)}" onchange="updateNpIssue(${gi},${ii},'label',this.value)"></td>
+            <td><input type="text" value="${escHtml(iss.href)}" onchange="updateNpIssue(${gi},${ii},'href',this.value)"></td>
+            <td><button class="btn-sm btn-sm-danger" onclick="deleteNpIssue(${gi},${ii})">✕</button></td>
+          </tr>`).join('')}</tbody>
+      </table>
+    </div>`).join('');
+}
+
+function updateNpGrade(gi, field, value) { state.newspaper.grades[gi][field] = value; markChanged(); }
+function addNewspaperGrade() {
+  if (!state.newspaper) state.newspaper = { grades: [] };
+  state.newspaper.grades.push({ id: 'grade-' + Date.now(), label: 'Új évfolyam', issues: [] });
+  markChanged(); renderNewspaperTab();
+}
+function deleteNpGrade(gi) { if (!confirm('Törli az évfolyamot?')) return; state.newspaper.grades.splice(gi,1); markChanged(); renderNewspaperTab(); }
+function addNpIssue(gi) {
+  state.newspaper.grades[gi].issues.push({ id: 'iss-' + Date.now(), label: '', icon: 'menu_book', href: '' });
+  markChanged(); renderNewspaperTab();
+}
+function deleteNpIssue(gi, ii) { state.newspaper.grades[gi].issues.splice(ii,1); markChanged(); renderNewspaperTab(); }
+function updateNpIssue(gi, ii, field, value) { state.newspaper.grades[gi].issues[ii][field] = value; markChanged(); }
+function moveNpIssue(gi, ii, dir) {
+  const arr = state.newspaper.grades[gi].issues;
+  const j = ii + dir; if (j < 0 || j >= arr.length) return;
+  [arr[ii], arr[j]] = [arr[j], arr[ii]]; markChanged(); renderNewspaperTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   VIDEÓK
+   ════════════════════════════════════════════════════════════════════════ */
+function renderVideosTab() {
+  const container = document.getElementById('videos-years');
+  const years = state.videos?.years || [];
+  container.innerHTML = years.map((y, yi) => `
+    <div class="form-card">
+      <div class="section-header">
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Tanév neve</label>
+          <input type="text" value="${escHtml(y.label)}" onchange="updateVideoYear(${yi},this.value)" style="width:100%;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+        </div>
+        <div style="display:flex;gap:6px;margin-left:12px;align-self:flex-end;">
+          <button class="btn-new" onclick="addVideo(${yi})">+ Videó</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteVideoYear(${yi})">Töröl</button>
+        </div>
+      </div>
+      <table class="list-table" style="margin-top:12px;">
+        <thead><tr><th style="width:30px;"></th><th style="width:140px;">YouTube ID</th><th>Cím</th><th style="width:180px;">Felirat</th><th style="width:50px;"></th></tr></thead>
+        <tbody>${(y.videos || []).map((v, vi) => `
+          <tr>
+            <td><div class="order-btns"><button onclick="moveVideo(${yi},${vi},-1)">▲</button><button onclick="moveVideo(${yi},${vi},1)">▼</button></div></td>
+            <td><input type="text" value="${escHtml(v.youtubeId)}" onchange="updateVideo(${yi},${vi},'youtubeId',this.value)"></td>
+            <td><input type="text" value="${escHtml(v.title)}" onchange="updateVideo(${yi},${vi},'title',this.value)"></td>
+            <td><input type="text" value="${escHtml(v.subtitle)}" onchange="updateVideo(${yi},${vi},'subtitle',this.value)"></td>
+            <td><button class="btn-sm btn-sm-danger" onclick="deleteVideo(${yi},${vi})">✕</button></td>
+          </tr>`).join('')}</tbody>
+      </table>
+    </div>`).join('');
+}
+
+function updateVideoYear(yi, value) { state.videos.years[yi].label = value; markChanged(); }
+function addVideoYear() {
+  if (!state.videos) state.videos = { years: [] };
+  state.videos.years.unshift({ id: 'y-' + Date.now(), label: 'Új tanév', videos: [] });
+  markChanged(); renderVideosTab();
+}
+function deleteVideoYear(yi) { if (!confirm('Törli a tanévet?')) return; state.videos.years.splice(yi,1); markChanged(); renderVideosTab(); }
+function addVideo(yi) {
+  if (!state.videos.years[yi].videos) state.videos.years[yi].videos = [];
+  state.videos.years[yi].videos.push({ id: 'v-' + Date.now(), youtubeId: '', title: '', subtitle: '' });
+  markChanged(); renderVideosTab();
+}
+function deleteVideo(yi, vi) { state.videos.years[yi].videos.splice(vi,1); markChanged(); renderVideosTab(); }
+function updateVideo(yi, vi, field, value) { state.videos.years[yi].videos[vi][field] = value; markChanged(); }
+function moveVideo(yi, vi, dir) {
+  const arr = state.videos.years[yi].videos;
+  const j = vi + dir; if (j < 0 || j >= arr.length) return;
+  [arr[vi], arr[j]] = [arr[j], arr[vi]]; markChanged(); renderVideosTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   EREDMÉNYEK
+   ════════════════════════════════════════════════════════════════════════ */
+const ENTRY_TYPES = [
+  { value: 'result',     label: 'Eredmény' },
+  { value: 'paragraph',  label: 'Bekezdés' },
+  { value: 'subheading', label: 'Alcím' },
+  { value: 'note',       label: 'Megjegyzés' },
+];
+
+function renderResultsTab() {
+  const container = document.getElementById('results-years');
+  const years = state.results?.years || [];
+  container.innerHTML = years.map((y, yi) => `
+    <div class="form-card">
+      <div class="section-header">
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Tanév</label>
+          <input type="text" value="${escHtml(y.label)}" onchange="updateResultYear(${yi},this.value)" style="width:100%;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+        </div>
+        <div style="display:flex;gap:6px;margin-left:12px;align-self:flex-end;">
+          <button class="btn-new" onclick="addResultCategory(${yi})">+ Kategória</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteResultYear(${yi})">Töröl</button>
+        </div>
+      </div>
+      ${(y.categories || []).map((cat, ci) => `
+        <div style="margin-top:16px;border:1px solid #e8e8e8;border-radius:8px;padding:14px;">
+          <div class="section-header" style="margin-bottom:10px;">
+            <input type="text" value="${escHtml(cat.title)}" placeholder="Kategória neve"
+              onchange="updateResultCategory(${yi},${ci},'title',this.value)"
+              style="flex:1;padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+            <div style="display:flex;gap:6px;margin-left:10px;">
+              <button class="btn-new" onclick="addResultEntry(${yi},${ci})">+ Sor</button>
+              <button class="btn-sm btn-sm-danger" onclick="deleteResultCategory(${yi},${ci})">Töröl</button>
+            </div>
+          </div>
+          <table class="list-table">
+            <thead><tr><th style="width:30px;"></th><th style="width:130px;">Típus</th><th>Szöveg</th><th style="width:50px;"></th></tr></thead>
+            <tbody>${(cat.entries || []).map((e, ei) => `
+              <tr>
+                <td><div class="order-btns"><button onclick="moveResultEntry(${yi},${ci},${ei},-1)">▲</button><button onclick="moveResultEntry(${yi},${ci},${ei},1)">▼</button></div></td>
+                <td>
+                  <select onchange="updateResultEntry(${yi},${ci},${ei},'type',this.value)" style="width:100%;padding:5px 6px;border:1px solid #ddd;border-radius:6px;font-size:13px;">
+                    ${ENTRY_TYPES.map(t => `<option value="${t.value}" ${e.type === t.value ? 'selected' : ''}>${t.label}</option>`).join('')}
+                  </select>
+                </td>
+                <td><input type="text" value="${escHtml(e.text)}" onchange="updateResultEntry(${yi},${ci},${ei},'text',this.value)"></td>
+                <td><button class="btn-sm btn-sm-danger" onclick="deleteResultEntry(${yi},${ci},${ei})">✕</button></td>
+              </tr>`).join('')}</tbody>
+          </table>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function updateResultYear(yi, value) { state.results.years[yi].label = value; markChanged(); }
+function addResultYear() {
+  if (!state.results) state.results = { years: [] };
+  state.results.years.unshift({ id: 'y-' + Date.now(), label: 'Új tanév', categories: [] });
+  markChanged(); renderResultsTab();
+}
+function deleteResultYear(yi) { if (!confirm('Törli a tanévet?')) return; state.results.years.splice(yi,1); markChanged(); renderResultsTab(); }
+function addResultCategory(yi) {
+  if (!state.results.years[yi].categories) state.results.years[yi].categories = [];
+  state.results.years[yi].categories.push({ id: 'cat-' + Date.now(), title: 'Új kategória', icon: 'emoji_events', entries: [] });
+  markChanged(); renderResultsTab();
+}
+function deleteResultCategory(yi, ci) { state.results.years[yi].categories.splice(ci,1); markChanged(); renderResultsTab(); }
+function updateResultCategory(yi, ci, field, value) { state.results.years[yi].categories[ci][field] = value; markChanged(); }
+function addResultEntry(yi, ci) {
+  state.results.years[yi].categories[ci].entries.push({ id: 'e-' + Date.now(), type: 'result', text: '' });
+  markChanged(); renderResultsTab();
+}
+function deleteResultEntry(yi, ci, ei) { state.results.years[yi].categories[ci].entries.splice(ei,1); markChanged(); renderResultsTab(); }
+function updateResultEntry(yi, ci, ei, field, value) { state.results.years[yi].categories[ci].entries[ei][field] = value; markChanged(); }
+function moveResultEntry(yi, ci, ei, dir) {
+  const arr = state.results.years[yi].categories[ci].entries;
+  const j = ei + dir; if (j < 0 || j >= arr.length) return;
+  [arr[ei], arr[j]] = [arr[j], arr[ei]]; markChanged(); renderResultsTab();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BÜSZKESÉGEINK
+   ════════════════════════════════════════════════════════════════════════ */
+const SPOTLIGHT_COLOR_DEFS = [
+  { value: 'gold', label: 'Arany',  hex: '#D4941A' },
+  { value: 'navy', label: 'Kék',    hex: '#0c447c' },
+  { value: 'teal', label: 'Zöld',   hex: '#1a9e72' },
+];
+const SPOTLIGHT_COLOR_MAP = {
+  gold: { bg: '#FEF0C7', fg: '#9B6210' },
+  navy: { bg: '#DBEAFE', fg: '#0c447c' },
+  teal: { bg: '#D1FAE5', fg: '#0f6e56' },
+};
+const openSpotlightPickers = new Set();
+const SPOTLIGHT_ICONS = [
+  { value: 'emoji_events',  label: 'Trófea' },
+  { value: 'star',          label: 'Kiválóság' },
+  { value: 'school',        label: 'Oktatás' },
+  { value: 'menu_book',     label: 'Irodalom' },
+  { value: 'science',       label: 'Természettudomány' },
+  { value: 'calculate',     label: 'Matematika' },
+  { value: 'music_note',    label: 'Zene' },
+  { value: 'palette',       label: 'Rajz/Művészet' },
+  { value: 'directions_run',label: 'Sport' },
+  { value: 'park',          label: 'Természet/Kert' },
+  { value: 'language',      label: 'Idegen nyelv' },
+  { value: 'groups',        label: 'Közösség' },
+  { value: 'favorite',      label: 'Jóllét' },
+  { value: 'psychology',    label: 'Mentálhigiéné' },
+  { value: 'sports_soccer', label: 'Labdarúgás' },
+];
+const MEDAL_TYPES = [
+  { value: 'gold',   label: 'Arany' },
+  { value: 'silver', label: 'Ezüst' },
+  { value: 'bronze', label: 'Bronz' },
+];
+
+function renderHighlightsTab() {
+  const spotlights = state.highlights?.spotlights || [];
+  document.getElementById('highlights-spotlights-admin').innerHTML = spotlights.map((s, si) => `
+    <div style="border:1px solid #e8e8e8;border-radius:8px;padding:14px;margin-bottom:12px;">
+      <div class="section-header" style="margin-bottom:10px;">
+        <strong style="font-size:13px;color:#555;">Kártya #${si+1}</strong>
+        <div style="display:flex;gap:6px;">
+          <button class="btn-sm" onclick="moveSpotlight(${si},-1)">▲</button>
+          <button class="btn-sm" onclick="moveSpotlight(${si},1)">▼</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteSpotlight(${si})">Töröl</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Ikon és szín</label>
+        <button type="button" class="hl-picker-toggle" onclick="toggleSpotlightPicker(${si})">
+          <span class="hl-picker-preview" style="background:${(SPOTLIGHT_COLOR_MAP[s.color]||SPOTLIGHT_COLOR_MAP.gold).bg};">
+            <span class="material-icons" style="color:${(SPOTLIGHT_COLOR_MAP[s.color]||SPOTLIGHT_COLOR_MAP.gold).fg};">${escHtml(s.icon)||'emoji_events'}</span>
+          </span>
+          <span style="font-size:13px;color:#555;">${openSpotlightPickers.has(si) ? 'Bezár' : 'Módosítás'}</span>
+          <span class="material-icons hl-picker-chevron ${openSpotlightPickers.has(si) ? 'open' : ''}">expand_more</span>
+        </button>
+        <div class="hl-picker-dropdown" style="display:${openSpotlightPickers.has(si) ? 'block' : 'none'};">
+          <div class="form-row">
+            <label>Szín</label>
+            <div class="hl-color-picker">
+              ${SPOTLIGHT_COLOR_DEFS.map(c => `
+                <span>
+                  <input type="radio" name="hl-color-${si}" id="hl-color-${si}-${c.value}" value="${c.value}"
+                    ${s.color === c.value ? 'checked' : ''}
+                    onchange="updateSpotlight(${si},'color',this.value)">
+                  <label for="hl-color-${si}-${c.value}">
+                    <span class="hl-color-swatch" style="background:${c.hex};"></span>${c.label}
+                  </label>
+                </span>`).join('')}
+            </div>
+          </div>
+          <div class="form-row" style="margin-bottom:0;">
+            <label>Ikon</label>
+            <div class="hl-icon-picker">
+              ${SPOTLIGHT_ICONS.map(ico => `
+                <span title="${escHtml(ico.label)}">
+                  <input type="radio" name="hl-icon-${si}" id="hl-icon-${si}-${ico.value}" value="${ico.value}"
+                    ${s.icon === ico.value ? 'checked' : ''}
+                    onchange="updateSpotlight(${si},'icon',this.value)">
+                  <label for="hl-icon-${si}-${ico.value}">
+                    <span class="material-icons">${ico.value}</span>
+                    ${escHtml(ico.label)}
+                  </label>
+                </span>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row-inline">
+        <div class="form-row">
+          <label>Cím</label>
+          <input type="text" value="${escHtml(s.title)}" onchange="updateSpotlight(${si},'title',this.value)">
+        </div>
+        <div class="form-row">
+          <label>Jelvény szöveg</label>
+          <input type="text" value="${escHtml(s.badge)}" onchange="updateSpotlight(${si},'badge',this.value)">
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom:0;">
+        <label>Leírás</label>
+        <textarea rows="2" onchange="updateSpotlight(${si},'description',this.value)" style="min-height:60px;">${escHtml(s.description)}</textarea>
+      </div>
+    </div>`).join('');
+
+  const students = state.highlights?.students || [];
+  document.getElementById('highlights-students-admin').innerHTML = students.map((st, sti) => `
+    <div style="border:1px solid #e8e8e8;border-radius:8px;padding:14px;margin-bottom:12px;">
+      <div class="section-header" style="margin-bottom:10px;">
+        <strong style="font-size:13px;color:#555;">${escHtml(st.name) || 'Tanuló #' + (sti+1)}</strong>
+        <div style="display:flex;gap:6px;">
+          <button class="btn-sm" onclick="moveStudent(${sti},-1)">▲</button>
+          <button class="btn-sm" onclick="moveStudent(${sti},1)">▼</button>
+          <button class="btn-sm btn-sm-danger" onclick="deleteStudent(${sti})">Töröl</button>
+        </div>
+      </div>
+      <div class="form-row-inline">
+        <div class="form-row">
+          <label>Név</label>
+          <input type="text" value="${escHtml(st.name)}" onchange="updateStudent(${sti},'name',this.value)">
+        </div>
+        <div class="form-row">
+          <label>Leírás (évf., szak)</label>
+          <input type="text" value="${escHtml(st.description)}" onchange="updateStudent(${sti},'description',this.value)">
+        </div>
+      </div>
+      <div>
+        <div class="section-header" style="margin-bottom:6px;">
+          <span style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;">Érmek / elismerések</span>
+          <button class="btn-new" onclick="addMedal(${sti})">+ Érem</button>
+        </div>
+        <table class="list-table">
+          <thead><tr><th style="width:100px;">Típus</th><th>Szöveg</th><th style="width:50px;"></th></tr></thead>
+          <tbody>${(st.medals || []).map((m, mi) => `
+            <tr>
+              <td>
+                <select onchange="updateMedal(${sti},${mi},'type',this.value)" style="width:100%;padding:5px 6px;border:1px solid #ddd;border-radius:6px;font-size:13px;">
+                  ${MEDAL_TYPES.map(t => `<option value="${t.value}" ${m.type === t.value ? 'selected' : ''}>${t.label}</option>`).join('')}
+                </select>
+              </td>
+              <td><input type="text" value="${escHtml(m.text)}" onchange="updateMedal(${sti},${mi},'text',this.value)"></td>
+              <td><button class="btn-sm btn-sm-danger" onclick="deleteMedal(${sti},${mi})">✕</button></td>
+            </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>`).join('');
+
+  const ib = state.highlights?.infoBox || {};
+  document.getElementById('hl-infobox-title').value = ib.title || '';
+  document.getElementById('hl-infobox-text').value = ib.text || '';
+}
+
+function updateSpotlight(si, field, value) { state.highlights.spotlights[si][field] = value; markChanged(); renderHighlightsTab(); }
+function toggleSpotlightPicker(si) {
+  openSpotlightPickers.has(si) ? openSpotlightPickers.delete(si) : openSpotlightPickers.add(si);
+  renderHighlightsTab();
+}
+function addSpotlight() {
+  if (!state.highlights) state.highlights = { spotlights: [], students: [], infoBox: {} };
+  if (!state.highlights.spotlights) state.highlights.spotlights = [];
+  state.highlights.spotlights.push({ id: 's-' + Date.now(), color: 'gold', icon: 'emoji_events', title: '', description: '', badge: '' });
+  markChanged(); renderHighlightsTab();
+}
+function deleteSpotlight(si) { state.highlights.spotlights.splice(si,1); markChanged(); renderHighlightsTab(); }
+function moveSpotlight(si, dir) {
+  const arr = state.highlights.spotlights;
+  const j = si + dir; if (j < 0 || j >= arr.length) return;
+  [arr[si], arr[j]] = [arr[j], arr[si]]; markChanged(); renderHighlightsTab();
+}
+
+function updateStudent(sti, field, value) { state.highlights.students[sti][field] = value; markChanged(); }
+function addStudent() {
+  if (!state.highlights) state.highlights = { spotlights: [], students: [], infoBox: {} };
+  if (!state.highlights.students) state.highlights.students = [];
+  state.highlights.students.push({ id: 'st-' + Date.now(), name: '', description: '', medals: [] });
+  markChanged(); renderHighlightsTab();
+}
+function deleteStudent(sti) { state.highlights.students.splice(sti,1); markChanged(); renderHighlightsTab(); }
+function moveStudent(sti, dir) {
+  const arr = state.highlights.students;
+  const j = sti + dir; if (j < 0 || j >= arr.length) return;
+  [arr[sti], arr[j]] = [arr[j], arr[sti]]; markChanged(); renderHighlightsTab();
+}
+
+function addMedal(sti) {
+  if (!state.highlights.students[sti].medals) state.highlights.students[sti].medals = [];
+  state.highlights.students[sti].medals.push({ id: 'm-' + Date.now(), type: 'gold', text: '' });
+  markChanged(); renderHighlightsTab();
+}
+function deleteMedal(sti, mi) { state.highlights.students[sti].medals.splice(mi,1); markChanged(); renderHighlightsTab(); }
+function updateMedal(sti, mi, field, value) { state.highlights.students[sti].medals[mi][field] = value; markChanged(); }
+
+['hl-infobox-title','hl-infobox-text'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    if (!state.highlights) state.highlights = { spotlights: [], students: [], infoBox: {} };
+    if (!state.highlights.infoBox) state.highlights.infoBox = {};
+    const v = document.getElementById(id).value;
+    if (id === 'hl-infobox-title') state.highlights.infoBox.title = v;
+    else if (id === 'hl-infobox-text') state.highlights.infoBox.text = v;
+    markChanged();
+  });
+});
+
+/* ════════════════════════════════════════════════════════════════════════
+   STÁTUSZ
+   ════════════════════════════════════════════════════════════════════════ */
+function setStatus(msg, type) {
+  const el = document.getElementById('status-msg');
+  el.textContent = msg;
+  el.className = 'status-msg ' + (type || 'info');
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   GITHUB API – KÖZZÉTESZ
+   ════════════════════════════════════════════════════════════════════════ */
+async function publishGitHub() {
+  const repo  = document.getElementById('gh-repo').value.trim();
+  const branch = document.getElementById('gh-branch').value.trim() || 'main';
+  const token = document.getElementById('gh-token').value.trim();
+
+  if (!repo || !token) {
+    setStatus('Adja meg a GitHub repót és a Personal Access Tokent a beállításoknál!', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('publish-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Közzétesz...';
+  setStatus('Feltöltés folyamatban...', 'info');
+
+  const stateMap = {
+    'news.json': state.news,
+    'calendar.json': state.calendar,
+    'enrollment.json': state.enrollment,
+    'curriculum.json': state.curriculum,
+    'competency.json': state.competency,
+    'further-education.json': state['further-education'],
+    'enrollment-program.json': state['enrollment-program'],
+    'newspaper.json': state.newspaper,
+    'videos.json': state.videos,
+    'results.json': state.results,
+    'highlights.json': state.highlights,
+  };
+
+  try {
+    const results = await Promise.all(Object.entries(stateMap).map(async ([file, data]) => {
+      if (!data) return;
+      const path = 'data/' + file;
+      const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+      const headers = { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' };
+
+      // Lekérjük a jelenlegi SHA-t
+      let sha = null;
+      try {
+        const getResp = await fetch(apiUrl + '?ref=' + branch, { headers });
+        if (getResp.ok) { const j = await getResp.json(); sha = j.sha; }
+      } catch (_) {}
+
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+      const body = { message: `Admin: ${file} frissítve (${new Date().toLocaleString('hu-HU')})`, content, branch };
+      if (sha) body.sha = sha;
+
+      const putResp = await fetch(apiUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+      if (!putResp.ok) {
+        const err = await putResp.json();
+        throw new Error(`${file}: ${err.message}`);
+      }
+    }));
+
+    setStatus('Közzétéve! A GitHub Pages frissítése ~60 másodpercet vesz igénybe.', 'success');
+    hasChanges = false;
+    document.getElementById('unsaved-indicator').style.display = 'none';
+  } catch (err) {
+    setStatus('Hiba a közzétés során: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Közzétesz';
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   FTP EXPORT – ZIP LETÖLTÉS
+   ════════════════════════════════════════════════════════════════════════ */
+async function exportZip() {
+  const stateMap = {
+    'news.json': state.news,
+    'calendar.json': state.calendar,
+    'enrollment.json': state.enrollment,
+    'curriculum.json': state.curriculum,
+    'competency.json': state.competency,
+    'further-education.json': state['further-education'],
+    'enrollment-program.json': state['enrollment-program'],
+    'newspaper.json': state.newspaper,
+    'videos.json': state.videos,
+    'results.json': state.results,
+    'highlights.json': state.highlights,
+  };
+
+  // Megpróbáljuk a JSZip-et (CDN-ről töltjük be dinamikusan, ha nincs)
+  if (typeof JSZip === 'undefined') {
+    setStatus('JSZip betöltése...', 'info');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
+  }
+
+  if (typeof JSZip !== 'undefined') {
+    const zip = new JSZip();
+    const folder = zip.folder('data');
+    Object.entries(stateMap).forEach(([file, data]) => {
+      if (data) folder.file(file, JSON.stringify(data, null, 2));
+    });
+    const blob = await zip.generateAsync({ type: 'blob' });
+    downloadBlob(blob, 'data-export-' + new Date().toISOString().slice(0,10) + '.zip', 'application/zip');
+    setStatus('ZIP letöltve. Töltse fel FTP-n a /data/ mappába.', 'success');
+  } else {
+    // Fallback: egyenként
+    Object.entries(stateMap).forEach(([file, data]) => {
+      if (data) {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        downloadBlob(blob, file, 'application/json');
+      }
+    });
+    setStatus('JSON fájlok letöltve. Töltse fel FTP-n a /data/ mappába.', 'success');
+  }
+  hasChanges = false;
+  document.getElementById('unsaved-indicator').style.display = 'none';
+  openFtpModal();
+}
+
+function openFtpModal() {
+  const m = document.getElementById('ftp-modal');
+  m.style.display = 'flex';
+}
+
+function closeFtpModal() {
+  document.getElementById('ftp-modal').style.display = 'none';
+}
+
+document.getElementById('ftp-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeFtpModal();
+});
+
+function downloadBlob(blob, filename, type) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   SEGÉDFÜGGVÉNY
+   ════════════════════════════════════════════════════════════════════════ */
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* Nem mentett változások – figyelmeztetés böngésző bezárásakor */
+window.addEventListener('beforeunload', e => {
+  if (hasChanges) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</body>
+</html>
